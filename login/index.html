@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="../sass/main.css">
+</head>
+
+<body>
+    <div id="auth">
+        <div>
+            <div id="root">
+                <div class="container">
+                    <div class="d-block">
+                        <header class="header">
+                            <span class="back-arrow">←</span>
+                            <h2>Sign in</h2>
+                            <span class="menu">⋮</span>
+                        </header>
+
+                        <main class="main">
+                            <h3 class="welcome">Welcome Back!</h3>
+                            <p class="subtitle">Please fill in correct Details .</p>
+
+                            <form class="form">
+                                <div class="form-group">
+                                    <span class="icon">📧</span>
+                                    <input type="email" placeholder="Email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <span class="icon">🔒</span>
+                                    <input type="password" placeholder="Password" required>
+                                </div>
+
+                                <button type="submit" class="btn primary">Sign in</button>
+                            </form>
+
+                            <p class="signup-text">No Account ? <a href="../signup/">Sign Up</a></p>
+
+                            <div class="divider"><span>or Sign in with</span></div>
+
+                            <div class="social-buttons">
+                                <button class="btn social google">Sign Up with Google</button>
+                                <button class="btn social facebook">Sign Up with Facebook</button>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./login.js"></script>
+</body>
+
+</html>
