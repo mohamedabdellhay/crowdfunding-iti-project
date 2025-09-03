@@ -79,7 +79,9 @@ let userStatus = null;
   await authService.renderHeder();
   console.log("isLogged", authService.isLoggedIn);
   console.log("user authorization");
-
+  if (!authService.isLoggedIn) {
+    window.location.href = "../login";
+  }
   userStatus = await authService.userAuthorization(authService.token());
   console.log("user", userStatus);
 

@@ -135,18 +135,26 @@ class AuthService {
                 </div>
                 <div class="user-actions hidden">
                     <ul>
-                        <li><button class="logout-btn">Sign Out</button></li>
-                        <li>account</li>
+                        <li><a class="logout-btn font-500">Logout</a></li>
+                        <li><a href="http://127.0.0.1:8080/profile" class="font-500">Profile</a></li>
                     </ul>
                 </div>
             </li>
         </ul>`;
+  }
+  renderGestStatus() {
+    return `<ul class="flex align-center justify-end">
+                <li><a href="/login/">Login</a></li>
+                <li><a href="./signup/">Register</a></li>
+            </ul>`;
   }
 
   async renderHeder() {
     await this.userAuthorization(this.token());
     if (this.isLoggedIn) {
       AuthConfig.ui.containerSelector.innerHTML = this.renderUserStatus();
+    } else {
+      AuthConfig.ui.containerSelector.innerHTML = this.renderGestStatus();
     }
     document.querySelector(".logout-btn")?.addEventListener("click", () => {
       this.logout();
