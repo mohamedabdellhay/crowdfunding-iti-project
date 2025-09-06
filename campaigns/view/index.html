@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../sass/main.css">
-    <link rel="stylesheet" href="../style.css">
-    <script src="../main.js" defer></script>
-    <script src="./campaigns.js" defer type="module"></script>
+    <link rel="stylesheet" href="../../sass/main.css">
+    <link rel="stylesheet" href="../../style.css">
+    <script src="../../main.js" defer></script>
+    <script src="./viewCampaign.js" defer type="module"></script>
 
     <!-- global script -->
-    <script src="../script.js" defer></script>
+    <script src="../../script.js" defer></script>
     <title>Campaigns</title>
 </head>
 
@@ -23,15 +23,15 @@
                     <div class="flex space-between .align-center">
                         <div class="flex justify-center align-center gap-10">
                             <span>
-                                <img src="../images/logo.png" alt="" width="20" class="logo">
+                                <img src="../../images/logo.png" alt="" width="20" class="logo">
                             </span>
-                            <a href="../">Fundstart</a>
+                            <a href="../../">Fundstart</a>
                         </div>
                         <div>
                             <ul class="flex space-between align-center flex-grow-1">
-                                <li><a href="../dashboard/">Dashboard</a></li>
-                                <li><a href="./">Campaigns</a></li>
-                                <li><a href="../fundraiser">Fundraiser</a></li>
+                                <li><a href="../../dashboard/">Dashboard</a></li>
+                                <li><a href="../">Campaigns</a></li>
+                                <li><a href="../../fundraiser">Fundraiser</a></li>
                             </ul>
                         </div>
                     </div>
@@ -102,130 +102,11 @@
 
     <main>
         <div class="container">
+            <section class="campaign-view">
 
-            <section id="Campaigns" class="tab-panel margin-top-2">
-                <nav class="header margin-bottom-1">
-                    <div style="display:flex; align-items:center; gap:8px">
-                        <h1 style="margin:0;font-size:22px;font-weight:800">Campaigns</h1>
-                        <!-- <span class="badge">Native HTML + SCSS</span> -->
-                    </div>
-                    <div style="display:flex; gap:8px">
-                        <!-- <button class="btn" id="refreshBtn">Refresh</button> -->
-                    </div>
-                </nav>
-                <div class="card">
-                    <div class="toolbar">
-                        <input id="campSearch" class="input" placeholder="Search campaigns (title)">
-                        <div id="createNewCampaign"></div>
-                    </div>
-                    <table class="table" id="campaignsTable">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Creator</th>
-                                <th>Goal</th>
-                                <th>Deadline</th>
-                                <th>Approved</th>
-                                <th>Rewards</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
             </section>
         </div>
 
-
-
-
-        <div id="newCampaignOverLay" class="hidden"></div>
-        <div id="newCampaign" class="hidden">
-            <div class="form-actions">
-                <div id="close">
-                    <button class="btn">Close</button>
-                </div>
-                <div id="close_reset">
-                    <button class="btn">Close&Reset</button>
-                </div>
-            </div>
-            <div>
-                <h1>Start a Campaign</h1>
-                <p class="subtitle">Add necessary Details , Images & Proof of concept</p>
-            </div>
-
-            <form>
-                <div class="form-grid">
-                    <!-- Campaign Title -->
-                    <div class="form-group">
-                        <label for="campaignTitle">Campaign Title</label>
-                        <input type="text" placeholder="Enter title of the Campaign" id="campaignTitle">
-                    </div>
-
-                    <!-- Category -->
-                    <div class="form-group">
-                        <label>Select Category</label>
-                        <select>
-                            <option disabled>Test</option>
-
-                        </select>
-                    </div>
-
-                    <!-- Short Description -->
-                    <div class="form-group full">
-                        <label for="campaignDescription">Short Description</label>
-                        <textarea placeholder="Enter Short Description about idea of startup"
-                            id="campaignDescription"></textarea>
-                    </div>
-
-
-
-                    <!-- Uploads -->
-                    <div class="form-group upload">
-                        <input type="file" id="uploadedImage" hidden>
-                        <label for="uploadedImage">Upload Cover Image</label>
-                        <div class="upload-box" id="uploadImageBox">1087 × 290 px</div>
-                    </div>
-
-                    <div class="form-group upload" disabled>
-                        <label for="campaignVideo">Upload Video</label>
-                        <div class="upload-box" id="campaignVideo">mp4 , m4a , mkv</div>
-                    </div>
-
-                    <!-- Goal Amount -->
-                    <div class="form-group">
-                        <label for="campaignAmount">Goal Amount</label>
-                        <input type="number" placeholder="Goal Amount" id="campaignAmount">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="rasiedAmount">Raised Amount</label>
-                        <input type="number" placeholder="Raised Amount till now" id="rasiedAmount"
-                            style="cursor: not-allowed;" disabled>
-                    </div>
-
-                    <!-- Dates -->
-                    <div class="form-group">
-                        <label for="startDate">Start Date</label>
-                        <input type="date" id="startDate" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="campaignDeadline">End Date</label>
-                        <input type="date" id="campaignDeadline">
-                    </div>
-
-
-                </div>
-
-                <div class="actions">
-                    <button type="submit">Publish Campaign</button>
-                </div>
-            </form>
-        </div>
 
     </main>
 
@@ -245,7 +126,7 @@
     <footer>
         <div class="footer container">
             <div class="logo">
-                <img src="../images/white-logo.png" alt="logo" />
+                <img src="../../images/white-logo.png" alt="logo" />
                 <span>Fundstart</span>
             </div>
             <div class="copyright">

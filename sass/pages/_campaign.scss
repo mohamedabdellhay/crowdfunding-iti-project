@@ -1,0 +1,165 @@
+#newCampaignOverLay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000041;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+}
+#newCampaign {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 999;
+  width: 80%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  .form-actions {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    & button {
+      background: none;
+      cursor: pointer;
+      min-width: 100px;
+      margin: 0;
+      padding: 10px;
+      &:hover {
+        background-color: #eee;
+      }
+    }
+    #close {
+      button {
+        background-color: #c5aa5096;
+        &:hover {
+          background-color: #c5aa50;
+        }
+      }
+    }
+    #close_reset {
+      button {
+        background-color: #f8a5a58a;
+        &:hover {
+          background-color: #f8a5a5;
+        }
+      }
+    }
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+
+  .subtitle {
+    text-align: left;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          font-size: 14px;
+          color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+          padding: 0.75rem 1rem;
+          border: 1px solid #dcdcdc;
+          border-radius: 8px;
+          font-size: 14px;
+          outline: none;
+          transition: border-color 0.2s;
+
+          &:focus {
+            border-color: #3b82f6;
+          }
+        }
+
+        textarea {
+          resize: vertical;
+          min-height: 100px;
+        }
+
+        &.full {
+          grid-column: span 2;
+        }
+
+        #startDate {
+          cursor: not-allowed;
+        }
+
+        &.upload {
+          .upload-box {
+            border: 2px dashed #cfd8e3;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            background: #f9fafc;
+            cursor: pointer;
+
+            &:hover {
+              border-color: #3b82f6;
+              color: #3b82f6;
+            }
+          }
+        }
+      }
+    }
+
+    .actions {
+      margin-top: 2rem;
+      text-align: center;
+
+      button {
+        background: #3065bacb;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+          background: #3065ba;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  #newCampaign {
+    padding: 1rem;
+    width: 100%;
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

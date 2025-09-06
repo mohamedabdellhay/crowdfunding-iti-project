@@ -40,6 +40,12 @@ class AuthService {
 
   async userAuthorization(token) {
     try {
+      if (!token.id) {
+        return {
+          validToken: false,
+          userRole: null,
+        };
+      }
       const tokenRes = await fetch(`http://localhost:3000/tokens/${token.id}`);
       const userRes = await fetch(
         `http://localhost:3000/users?isActive=true&email=${this.userEmail}`
@@ -79,7 +85,13 @@ class AuthService {
     }
   }
 
-  logout() {
+  async logout() {
+    const tokenID = this.tokenID;
+    await fetch(`http://localhost:3000/tokens/${tokenID}`, {
+      method: "DELETE",
+    });
+    console.log("token id :", this.tokenID);
+    // return;
     console.log("logged out");
     localStorage.clear();
     window.location.href = AuthConfig.ui.redirectUrl;

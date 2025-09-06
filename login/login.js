@@ -51,6 +51,7 @@ const login = async function (credentials) {
     localStorage.setItem("accessToken", data.accessToken);
     localStorage.setItem("tokenID", tokenData.id);
     localStorage.setItem("userName", data.user.name);
+    localStorage.setItem("userId", data.user.id);
     localStorage.setItem("userEmail", data.user.email);
     localStorage.setItem("role", data.user.role);
     console.log("Login Response:", data);

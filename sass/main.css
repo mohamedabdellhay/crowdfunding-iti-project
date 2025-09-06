@@ -120,6 +120,10 @@ body {
   font-weight: 500;
 }
 
+.reset-anchor {
+  text-decoration: none;
+}
+
 header ul {
   list-style: none;
 }
@@ -226,6 +230,139 @@ footer .footer .copyright {
 
 .logo-text {
   color: #364c6f;
+}
+
+.section-header {
+  padding: 1rem 2rem 0;
+}
+
+.campaigns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.campaign-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.campaign-card:hover {
+  transform: translateY(-4px);
+}
+.campaign-card img {
+  width: 100%;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  background: #ddd;
+}
+.campaign-card .campaign-content {
+  padding: 1rem;
+  flex: 1;
+}
+.campaign-card .campaign-content h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+.campaign-card .campaign-content p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+.campaign-card .campaign-content .campaign-meta {
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.campaign-card .campaign-content .campaign-meta strong {
+  color: #222;
+}
+.campaign-card .rewards {
+  padding: 0.5rem 1rem 1rem;
+  border-top: 1px solid #eee;
+}
+.campaign-card .rewards .reward {
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
+  color: #444;
+}
+.campaign-card.show-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #3d5476;
+  height: 100%;
+  cursor: pointer;
+  background: #f5f5f5;
+  border: 2px dashed #3d5476;
+}
+.campaign-card.show-more:hover {
+  background: #e6f0ff;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+  .campaigns {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .campaign-card img {
+    height: 150px;
+  }
+}
+@media (max-width: 480px) {
+  .campaign-card {
+    border-radius: 8px;
+  }
+  .campaign-content h3 {
+    font-size: 1rem;
+  }
+}
+.rewards-section {
+  padding: 2rem;
+}
+.rewards-section .rewards-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.rewards-section .reward-card {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.rewards-section .reward-card:hover {
+  transform: translateY(-5px);
+}
+.rewards-section .reward-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #3d5476;
+}
+.rewards-section .reward-card p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+.rewards-section .reward-card small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #777;
 }
 
 #auth {
@@ -720,4 +857,272 @@ footer .footer .copyright {
   margin-top: 18px;
   color: #6b7280;
   font-size: 12px;
+}
+
+#newCampaignOverLay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2549019608);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 998;
+}
+
+#newCampaign {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  z-index: 999;
+  width: 80%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+#newCampaign .form-actions {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+#newCampaign .form-actions button {
+  background: none;
+  cursor: pointer;
+  min-width: 100px;
+  margin: 0;
+  padding: 10px;
+}
+#newCampaign .form-actions button:hover {
+  background-color: #eee;
+}
+#newCampaign .form-actions #close button {
+  background-color: rgba(197, 170, 80, 0.5882352941);
+}
+#newCampaign .form-actions #close button:hover {
+  background-color: #c5aa50;
+}
+#newCampaign .form-actions #close_reset button {
+  background-color: rgba(248, 165, 165, 0.5411764706);
+}
+#newCampaign .form-actions #close_reset button:hover {
+  background-color: #f8a5a5;
+}
+#newCampaign h1 {
+  font-size: 24px;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+#newCampaign .subtitle {
+  text-align: left;
+  color: #666;
+  margin-bottom: 2rem;
+}
+#newCampaign form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+#newCampaign form .form-grid .form-group {
+  display: flex;
+  flex-direction: column;
+}
+#newCampaign form .form-grid .form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+}
+#newCampaign form .form-grid .form-group input,
+#newCampaign form .form-grid .form-group select,
+#newCampaign form .form-grid .form-group textarea {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#newCampaign form .form-grid .form-group input:focus,
+#newCampaign form .form-grid .form-group select:focus,
+#newCampaign form .form-grid .form-group textarea:focus {
+  border-color: #3b82f6;
+}
+#newCampaign form .form-grid .form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+#newCampaign form .form-grid .form-group.full {
+  grid-column: span 2;
+}
+#newCampaign form .form-grid .form-group #startDate {
+  cursor: not-allowed;
+}
+#newCampaign form .form-grid .form-group.upload .upload-box {
+  border: 2px dashed #cfd8e3;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  background: #f9fafc;
+  cursor: pointer;
+}
+#newCampaign form .form-grid .form-group.upload .upload-box:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+#newCampaign form .actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+#newCampaign form .actions button {
+  background: rgba(48, 101, 186, 0.7960784314);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#newCampaign form .actions button:hover {
+  background: #3065ba;
+}
+
+@media (max-width: 768px) {
+  #newCampaign {
+    padding: 1rem;
+    width: 100%;
+  }
+  #newCampaign .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.campaign-view {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+.campaign-view .campaign-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.campaign-view .campaign-card .campaign-image {
+  width: 100%;
+  height: 320px;
+  background: #f0f0f0;
+}
+.campaign-view .campaign-card .campaign-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.campaign-view .campaign-card .campaign-content {
+  padding: 1.5rem;
+}
+.campaign-view .campaign-card .campaign-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.campaign-view .campaign-card .campaign-content .description {
+  margin: 1rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+.campaign-view .campaign-card .campaign-content .campaign-details {
+  margin: 1rem 0;
+}
+.campaign-view .campaign-card .campaign-content .campaign-details p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+.campaign-view .campaign-card .campaign-content .status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.campaign-view .campaign-card .campaign-content .status.approved {
+  background: #d4edda;
+  color: #155724;
+}
+.campaign-view .campaign-card .campaign-content .status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+.campaign-view .campaign-card .campaign-content .status.rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+.campaign-view .campaign-card .campaign-content .campaign-user,
+.campaign-view .campaign-card .campaign-content .campaign-rewards,
+.campaign-view .campaign-card .campaign-content .campaign-pledges {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  background: #f9fafc;
+  border: 1px solid #eee;
+}
+.campaign-view .campaign-card .campaign-content .campaign-user h3,
+.campaign-view .campaign-card .campaign-content .campaign-rewards h3,
+.campaign-view .campaign-card .campaign-content .campaign-pledges h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+.campaign-view .campaign-card .campaign-content .campaign-user p,
+.campaign-view .campaign-card .campaign-content .campaign-rewards p,
+.campaign-view .campaign-card .campaign-content .campaign-pledges p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+.campaign-view .campaign-card .campaign-content .back-btn {
+  margin-top: 2rem;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.campaign-view .campaign-card .campaign-content .back-btn:hover {
+  background: #0056b3;
+}
+.campaign-view .campaign-card form {
+  display: flex;
+  gap: 0.5rem;
+}
+.campaign-view .campaign-card form input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+}
+.campaign-view .campaign-card form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #28a745;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.campaign-view .campaign-card form button:hover {
+  background: #218838;
 }/*# sourceMappingURL=main.css.map */
