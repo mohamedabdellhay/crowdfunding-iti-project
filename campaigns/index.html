@@ -106,7 +106,7 @@
             <section id="Campaigns" class="tab-panel margin-top-2">
                 <nav class="header margin-bottom-1">
                     <div style="display:flex; align-items:center; gap:8px">
-                        <h1 style="margin:0;font-size:22px;font-weight:800">Campaigns</h1>
+                        <h1 style="margin:0;font-size:22px;font-weight:800">All Campaigns</h1>
                         <!-- <span class="badge">Native HTML + SCSS</span> -->
                     </div>
                     <div style="display:flex; gap:8px">
@@ -115,10 +115,13 @@
                 </nav>
                 <div class="card">
                     <div class="toolbar">
-                        <input id="campSearch" class="input" placeholder="Search campaigns (title)">
+                        <!-- <input id="campSearch" class="input" placeholder="Search campaigns (title)"> -->
+                        <p class="campain">Show <span id="shown-campaigns">10</span> of <span
+                                id="campaign-length">15</span>
+                            Campaigns</p>
                         <div id="createNewCampaign"></div>
                     </div>
-                    <table class="table" id="campaignsTable">
+                    <!-- <table class="table" id="campaignsTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -134,8 +137,9 @@
                         <tbody>
 
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
+                <div id="campaigns-container"></div>
             </section>
         </div>
 

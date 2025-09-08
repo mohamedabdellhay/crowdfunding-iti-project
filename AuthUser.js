@@ -100,7 +100,6 @@ class AuthService {
     // return;
     console.log("logged out");
     localStorage.clear();
-    window.location.href = AuthConfig.ui.redirectUrl;
   }
 
   token() {

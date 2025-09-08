@@ -209,6 +209,7 @@ body {
 
 .bg-primary {
   background-color: #3d5476;
+  color: #fff;
 }
 .bg-primary:hover {
   background-color: #345991;
@@ -710,6 +711,7 @@ footer .footer .copyright {
   gap: 12px;
   align-items: center;
   justify-content: space-between;
+  margin: 0 1rem;
 }
 #dashboard .badge,
 #Campaigns .badge {
@@ -725,7 +727,6 @@ footer .footer .copyright {
      -moz-appearance: none;
           appearance: none;
   border: 1px solid #e5e7eb;
-  background: #fff;
   border-radius: 12px;
   padding: 0.55rem 0.85rem;
   font-size: 14px;
@@ -736,10 +737,6 @@ footer .footer .copyright {
 #Campaigns .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px var(--ring);
-}
-#dashboard .btn:hover,
-#Campaigns .btn:hover {
-  background: #fafafa;
 }
 #dashboard .tabs,
 #Campaigns .tabs {
@@ -759,9 +756,9 @@ footer .footer .copyright {
 }
 #dashboard .tab.active,
 #Campaigns .tab.active {
-  background: #111111;
+  background: #3d5476;
   color: #fff;
-  border-color: #111111;
+  border-color: #111827;
 }
 #dashboard .grid,
 #Campaigns .grid {
@@ -800,8 +797,9 @@ footer .footer .copyright {
   background: #fff;
   border: 1px solid #eef0f3;
   border-radius: 16px;
-  padding: 16px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+  margin: 1rem;
+  padding: 2rem;
 }
 #dashboard .toolbar,
 #Campaigns .toolbar {
@@ -903,8 +901,8 @@ footer .footer .copyright {
 }
 #dashboard .switch:checked,
 #Campaigns .switch:checked {
-  background: #111111;
-  border-color: #111111;
+  background: #3d5476;
+  border-color: #111827;
 }
 #dashboard .switch::after,
 #Campaigns .switch::after {
@@ -978,6 +976,103 @@ footer .footer .copyright {
   z-index: 998;
 }
 
+.section-header {
+  padding: 1rem 2rem 0;
+}
+
+#campaigns-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.campaign-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.campaign-card:hover {
+  transform: translateY(-4px);
+}
+.campaign-card img {
+  width: 100%;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  background: #ddd;
+}
+.campaign-card .campaign-content {
+  padding: 1rem;
+  flex: 1;
+}
+.campaign-card .campaign-content h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+.campaign-card .campaign-content p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+.campaign-card .campaign-content .campaign-meta {
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.campaign-card .campaign-content .campaign-meta strong {
+  color: #222;
+}
+.campaign-card .rewards {
+  padding: 0.5rem 1rem 1rem;
+  border-top: 1px solid #eee;
+}
+.campaign-card .rewards .reward {
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
+  color: #444;
+}
+.campaign-card.show-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #3d5476;
+  height: 100%;
+  cursor: pointer;
+  background: #f5f5f5;
+  border: 2px dashed #3d5476;
+}
+.campaign-card.show-more:hover {
+  background: #e6f0ff;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+  .campaigns {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .campaign-card img {
+    height: 150px;
+  }
+}
+@media (max-width: 480px) {
+  .campaign-card {
+    border-radius: 8px;
+  }
+  .campaign-content h3 {
+    font-size: 1rem;
+  }
+}
 #newCampaign {
   position: fixed;
   top: 50%;
@@ -1275,4 +1370,171 @@ footer .footer .copyright {
 .users-table tbody tr td.total {
   font-weight: bold;
   color: green;
+}
+
+.profile-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+.profile-card .profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.profile-card .profile-header .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #007bff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+.profile-card .profile-header .user-info h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+.profile-card .profile-header .user-info .email {
+  color: #666;
+  font-size: 14px;
+}
+.profile-card .profile-details {
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.profile-card .profile-details .detail {
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.profile-card .profile-details .detail .label {
+  font-weight: 600;
+  margin-right: 5px;
+}
+.profile-card .profile-details .detail .value.active {
+  color: green;
+  font-weight: 600;
+}
+.profile-card .profile-details .detail .value.valid {
+  color: #007bff;
+}
+.profile-card .profile-actions {
+  display: flex;
+  gap: 12px;
+}
+.profile-card .profile-actions .btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.profile-card .profile-actions .btn.primary {
+  background: #007bff;
+  color: #fff;
+}
+.profile-card .profile-actions .btn.secondary {
+  background: #6c757d;
+  color: #fff;
+}
+.profile-card .profile-actions .btn:hover {
+  opacity: 0.9;
+}
+
+.campaigns-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+.campaigns-section .section-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.campaigns-section .campaigns-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.campaigns-section .campaigns-table th,
+.campaigns-section .campaigns-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+.campaigns-section .campaigns-table th {
+  background: #f1f3f5;
+  font-weight: 600;
+}
+.campaigns-section .campaigns-table img {
+  border-radius: 6px;
+  width: 80px;
+}
+.campaigns-section .campaigns-table .input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.campaigns-section .campaigns-table .tag {
+  background: #e9ecef;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.campaigns-section .campaigns-table .btn.small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+.campaigns-section .campaigns-table .btn.danger {
+  background: #dc3545;
+  color: #fff;
+}
+.campaigns-section .campaigns-table .switch-label {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+.campaigns-section .campaigns-table .switch-label input {
+  display: none;
+}
+.campaigns-section .campaigns-table .switch-label .switch-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ccc;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.campaigns-section .campaigns-table .switch-label .switch-slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.campaigns-section .campaigns-table .switch-label input:checked + .switch-slider {
+  background: #28a745;
+}
+.campaigns-section .campaigns-table .switch-label input:checked + .switch-slider::before {
+  transform: translateX(20px);
 }/*# sourceMappingURL=main.css.map */

@@ -527,7 +527,7 @@ let userStatus = null;
     },
 
     createCampaignRow: (campaign) => {
-      const creator = DataCache.findById("users", campaign.creatorId);
+      const creator = DataCache.findById("users", campaign.userId);
       const rewardsHtml = (campaign.rewards || [])
         .map((r) => `<span class="tag">${r.title}: $${r.amount}</span>`)
         .join(" ");
@@ -539,7 +539,7 @@ let userStatus = null;
                 <div class="inline-edit">
                     <input class="input" value="${
                       campaign.title || ""
-                    }" data-camp="title" data-id="${campaign.id}"/>
+                    }" data-camp="title" data-id="${campaign.id}"/ disabled>
                 </div>
             </td>
             <td>${creator ? creator.name : "—"}</td>
@@ -547,14 +547,14 @@ let userStatus = null;
                 <div class="inline-edit">
                     <input type="number" class="input" value="${
                       campaign.goal || 0
-                    }" data-camp="goal" data-id="${campaign.id}"/>
+                    }" data-camp="goal" data-id="${campaign.id}" disabled/>
                 </div>
             </td>
             <td>
                 <div class="inline-edit">
                     <input type="date" class="input" value="${
                       campaign.deadline || ""
-                    }" data-camp="deadline" data-id="${campaign.id}"/>
+                    }" data-camp="deadline" data-id="${campaign.id}" disabled/>
                 </div>
             </td>
             <td>

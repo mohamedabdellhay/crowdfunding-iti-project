@@ -35,6 +35,8 @@ const DOM_SELECTION = {
   caretCampaignBtn: document.querySelector("#createNewCampaign>button"),
   newCampaignForm: document.getElementById("newCampaign"),
   newCampaignOverLay: document.getElementById("newCampaignOverLay"),
+  shownCampaigns: document.getElementById("shown-campaigns"),
+  campaignLength: document.getElementById("campaign-length"),
   campaignData: {
     title: document.getElementById("campaignTitle"),
     description: document.getElementById("campaignDescription"),
@@ -60,6 +62,8 @@ class Campaign {
     this.deadline = campaignData.deadline;
     this.isApproved = campaignData.isApproved;
     this.rewards = campaignData.rewards || [];
+    this.image = campaignData.image;
+    this.description = campaignData.description;
   }
 
   generateRewardsHtml() {
@@ -72,13 +76,13 @@ class Campaign {
     return null;
   }
   generateActions() {
-    console.log("render actions", authService.isLoggedIn);
+    console.log("render actions", authService.setIsLoggedIn);
     console.log(authService);
 
     return authService.userEmail === this.user.email
       ? `<button class="icon-btn edit" data-action="edit-campaign" data-id="${this.id}">Edit</button>
                 <button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Delete</button>`
-      : authService.isLoggedIn
+      : authService.setIsLoggedIn
       ? `<button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Add Reward</button>`
       : `<button class="icon-btn" onclick="window.location.href='../login'">Login to Add Reward</button>`;
   }
@@ -124,10 +128,12 @@ class Campaign {
     </tr>
     `;
   }
+
   generateNewCampaign() {}
 }
 
 class CampaignManager {
+  #campaignsContainer = document.getElementById("campaigns-container");
   constructor() {
     this.campaigns = [];
     this.length = 0;
@@ -180,11 +186,61 @@ class CampaignManager {
   }
 
   renderTable() {
-    const campaignsHtml = this.campaigns
-      .map((campaign) => campaign.generateTableRow())
-      .join("");
-    console.log("campaigns", campaignsHtml);
-    DOM_SELECTION.tableBody.innerHTML = campaignsHtml;
+    // const campaignsHtml = this.campaigns
+    //   .map((campaign) => campaign.generateTableRow())
+    //   .join("");
+    // console.log("campaigns", campaignsHtml);
+    // DOM_SELECTION.tableBody.innerHTML = campaignsHtml;
+    this.renderCampaigns(this.campaigns);
+  }
+  renderSingleReward(r) {
+    return `<div className="reward">
+              ${r.title} — ${r.amount}
+            </div>`;
+  }
+
+  renderRewardsCards(rewards) {
+    if (rewards.length > 0) {
+      return `<div className="rewards">
+          ${rewards.map((r) => this.renderSingleReward(r)).join("")}
+        </div>`;
+    } else {
+      return `<div className="rewards">No rewards listed.</div>`;
+    }
+  }
+
+  renderCampaignCard(campaign) {
+    return `
+   <div class="campaign-card">
+   <a href="./view/?id=${campaign.id}" class="reset-anchor">
+   <img src="${campaign.image}" alt="${campaign.title}">
+   <div class="campaign-content">
+        <h3>${campaign.title}</h3>
+        <p>${campaign.description}</p>
+        <div class="campaign-meta">
+          <strong>Goal:</strong> ${campaign.goal} <br>
+          <strong>Achieved:</strong> ${Utilities.sumRewards(
+            campaign.rewards
+          )} <br>
+          <strong>Deadline:</strong> ${campaign.deadline}
+        </div>
+       <a href="./view/?id=${
+         campaign.id
+       }" style="text-decoration:none">Read More...</a>
+      </div>
+      </a>
+    </div>
+    `;
+  }
+
+  renderCampaigns(data) {
+    console.log("data=====>", data);
+    DOM_SELECTION.campaignLength.innerHTML = data.length;
+    DOM_SELECTION.shownCampaigns.innerHTML = data.length;
+
+    const container = data.map((ele) => this.renderCampaignCard(ele)).join("");
+    console.log("container", container);
+    this.#campaignsContainer.insertAdjacentHTML("afterbegin", container);
   }
 
   static async fetchCampaignById(id) {
@@ -255,9 +311,11 @@ function domListener() {
 
 // render create campaign button
 function renderCreateCampaignBtn(isLoggedIn) {
+  console.log(isLoggedIn);
+
   isLoggedIn
     ? (DOM_SELECTION.createCampaignContainer.innerHTML =
-        ' <button class="btn createNewCampaignBtn">Create Campaign</button>')
+        ' <button class="btn createNewCampaignBtn bg-primary">Create New Campaign</button>')
     : (DOM_SELECTION.createCampaignContainer.innerHTML = "");
 }
 

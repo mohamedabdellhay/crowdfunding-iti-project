@@ -11,7 +11,7 @@
 
     <!-- global script -->
     <script src="../script.js" defer></script>
-    <title>Campaigns</title>
+    <title>Profile</title>
 </head>
 
 <body>
@@ -100,11 +100,98 @@
 
 
 
-    <main>
+    <main style="margin-top: 20px;">
+
         <div class="container">
 
-            <h3>Profile Page</h3>
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="avatar">
+                        <span>A</span>
+                    </div>
+                    <div class="user-info">
+                        <h2>Abdellhay</h2>
+                        <p class="email">abdellhay@test.com</p>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="detail">
+                        <span class="label">ID:</span>
+                        <span class="value">1</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Role:</span>
+                        <span class="value">Admin</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Status:</span>
+                        <span class="value active">Active</span>
+                    </div>
+                    <div class="detail">
+                        <span class="label">Valid:</span>
+                        <span class="value valid">Yes</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn primary">Update Email</button>
+                    <button class="btn secondary">Update Password</button>
+                </div>
+            </div>
+
+            <!-- Campaigns Section -->
+            <div class="campaigns-section">
+                <h3 class="section-title">My Campaigns</h3>
+                <table class="campaigns-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Goal</th>
+                            <th>Deadline</th>
+                            <th>Approved</th>
+                            <th>Rewards</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <img src="https://via.placeholder.com/100" alt="Campaign Image" />
+                            </td>
+                            <td>
+                                <input class="input" value="Smart Watch Pro" data-camp="title" data-id="1">
+                            </td>
+                            <td>
+                                <input type="number" class="input" value="15000" data-camp="goal" data-id="1">
+                            </td>
+                            <td>
+                                <input type="date" class="input" value="2024-12-20" data-camp="deadline" data-id="1"
+                                    disabled>
+                            </td>
+                            <td>
+                                <label class="switch-label">
+                                    <input type="checkbox" class="switch" checked data-action="toggle-approved"
+                                        data-id="1">
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </td>
+                            <td><span class="tag">No rewards</span></td>
+                            <td>
+                                <button class="btn small">Edit</button>
+                                <button class="btn danger small">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
+
 
     </main>
 
