@@ -1,13 +1,42 @@
 import AuthService from "../../AuthUser.js";
-const authService = new AuthService();
-
+import RewardController from "../../RewardController.js";
+import Utilities from "../../utilities.js";
 console.log("start campaign view");
 
-document.addEventListener("click", function (event) {
+const authService = new AuthService();
+const campaignId = new URLSearchParams(window.location.search).get("id");
+console.log("camp id", campaignId);
+
+document.addEventListener("click", async function (event) {
+  // event.preventDefault();
   if (event.target.closest(".back-btn")) {
     window.location.href = "../";
   }
+  if (event.target.closest("#reward-form>button")) {
+    event.preventDefault();
+    const title = document.getElementById("reward-title").value.trim();
+    const amount = document.getElementById("reward-amount").value.trim();
+    console.log("title", title, "value", amount);
+    if (!title || !amount) {
+      console.log("data is not filled");
+      return;
+    }
+
+    RewardController.insertReward({
+      title: title,
+      amount: Number(amount),
+      userId: Number(authService.userId),
+      campaignId: Number(campaignId),
+    });
+  }
 });
+
+// document
+//   .getElementById("reward-form")
+//   .addEventListener("submit", function (event) {
+//     event.preventDefault();
+//     const title = document.querySelector("-");
+//   });
 
 class Campaign {
   #campaignContainer = document.querySelector(".campaign-view");
@@ -24,13 +53,15 @@ class Campaign {
       email: camp.user.email,
     };
   }
+
   renderImage(src, alt) {
     return `<img src="${src}" alt="${alt}">`;
   }
 
   renderDetails(goal, deadline, status) {
     return `
-        <p><strong>Goal:</strong> $${goal}</p>
+        <p><strong>Goal:</strong> ${goal}$</p>
+        <p><strong>Achieved:</strong> ${Utilities.sumRewards(this.rewards)}$</p>
         <p><strong>Deadline:</strong> ${deadline}</p>
         <p>
             <strong>Status:</strong>
@@ -53,17 +84,25 @@ class Campaign {
     `;
   }
 
+  renderRewardCard(r) {
+    return `<li className="reward">
+      <strong>${r.title}:</strong> <span class='reward-amount'>${r.amount}</span>
+    </li>`;
+  }
+
   renderRewards(rewards) {
-    return `
-        <ul id="rewards-list">
-            <li>No rewards available.</li>
-        </ul>
-    `;
+    return `<ul id="rewards-list">
+             ${
+               rewards.length === 0
+                 ? `<li>No rewards available.</li>`
+                 : rewards.map((r) => this.renderRewardCard(r)).join("")
+             } 
+            </ul>`;
   }
 
   createCampaignHTML(campaign) {
     return `
-        <div class="campaign-card">
+        <div class="campaign-container">
             <!-- Campaign Image -->
             <div class="campaign-image">
                 ${this.renderImage(campaign.image, campaign.title)}
@@ -96,7 +135,7 @@ class Campaign {
                     <form id="reward-form">
                         <input type="text" id="reward-title" placeholder="Reward Title" required>
                         <input type="number" id="reward-amount" placeholder="Amount ($)" required>
-                        <button type="submit">+ Add Reward</button>
+                        <button type="button" class="bg-primary">+ Add Reward</button>
                     </form>
                 </div>
 
@@ -106,7 +145,7 @@ class Campaign {
                     <p>No pledges yet.</p>
                 </div> -->
 
-                <button class="back-btn">⬅ Back to Campaigns</button>
+                <button class="back-btn bg-primary" type="button">⬅ Back to Campaigns</button>
             </div>
         </div>
     
@@ -114,6 +153,7 @@ class Campaign {
   }
 
   renderCampaign(data) {
+    document.title = `Campaign | ${this.title}`;
     this.#campaignContainer.innerHTML = "";
     this.#campaignContainer.insertAdjacentHTML(
       "afterbegin",
@@ -126,8 +166,6 @@ class Campaign {
   authService.getStorage();
   await authService.renderHeder();
   // get campaign id
-  const campaignId = new URLSearchParams(window.location.search).get("id");
-  console.log("camp id", campaignId);
 
   const response = await fetch(
     `http://localhost:3000/campaigns/${campaignId}?_expand=user&_embed=pledges&_embed=rewards&isApprovedtrue`

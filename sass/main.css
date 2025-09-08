@@ -122,6 +122,14 @@ body {
 
 .reset-anchor {
   text-decoration: none;
+  color: inherit;
+}
+
+.bg-primary {
+  background-color: #3d5476;
+}
+.bg-primary:hover {
+  background-color: #345991;
 }
 
 header ul {
@@ -1009,7 +1017,7 @@ footer .footer .copyright {
   justify-content: center;
   padding: 2rem;
 }
-.campaign-view .campaign-card {
+.campaign-view .campaign-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -1018,111 +1026,152 @@ footer .footer .copyright {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
-.campaign-view .campaign-card .campaign-image {
+.campaign-view .campaign-container .campaign-image {
   width: 100%;
   height: 320px;
   background: #f0f0f0;
 }
-.campaign-view .campaign-card .campaign-image img {
+.campaign-view .campaign-container .campaign-image img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.campaign-view .campaign-card .campaign-content {
+.campaign-view .campaign-container .campaign-content {
   padding: 1.5rem;
 }
-.campaign-view .campaign-card .campaign-content h2 {
+.campaign-view .campaign-container .campaign-content h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
-.campaign-view .campaign-card .campaign-content .description {
+.campaign-view .campaign-container .campaign-content .description {
   margin: 1rem 0;
   font-size: 1rem;
   line-height: 1.5;
   color: #555;
 }
-.campaign-view .campaign-card .campaign-content .campaign-details {
+.campaign-view .campaign-container .campaign-content .campaign-details {
   margin: 1rem 0;
 }
-.campaign-view .campaign-card .campaign-content .campaign-details p {
+.campaign-view .campaign-container .campaign-content .campaign-details p {
   margin: 0.3rem 0;
   font-size: 1rem;
 }
-.campaign-view .campaign-card .campaign-content .status {
+.campaign-view .campaign-container .campaign-content .status {
   padding: 0.2rem 0.6rem;
   border-radius: 0.5rem;
   font-size: 0.9rem;
   font-weight: bold;
 }
-.campaign-view .campaign-card .campaign-content .status.approved {
+.campaign-view .campaign-container .campaign-content .status.approved {
   background: #d4edda;
   color: #155724;
 }
-.campaign-view .campaign-card .campaign-content .status.pending {
+.campaign-view .campaign-container .campaign-content .status.pending {
   background: #fff3cd;
   color: #856404;
 }
-.campaign-view .campaign-card .campaign-content .status.rejected {
+.campaign-view .campaign-container .campaign-content .status.rejected {
   background: #f8d7da;
   color: #721c24;
 }
-.campaign-view .campaign-card .campaign-content .campaign-user,
-.campaign-view .campaign-card .campaign-content .campaign-rewards,
-.campaign-view .campaign-card .campaign-content .campaign-pledges {
+.campaign-view .campaign-container .campaign-content .campaign-user,
+.campaign-view .campaign-container .campaign-content .campaign-rewards,
+.campaign-view .campaign-container .campaign-content .campaign-pledges {
   margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 0.8rem;
   background: #f9fafc;
   border: 1px solid #eee;
 }
-.campaign-view .campaign-card .campaign-content .campaign-user h3,
-.campaign-view .campaign-card .campaign-content .campaign-rewards h3,
-.campaign-view .campaign-card .campaign-content .campaign-pledges h3 {
+.campaign-view .campaign-container .campaign-content .campaign-user h3,
+.campaign-view .campaign-container .campaign-content .campaign-rewards h3,
+.campaign-view .campaign-container .campaign-content .campaign-pledges h3 {
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
   color: #333;
 }
-.campaign-view .campaign-card .campaign-content .campaign-user p,
-.campaign-view .campaign-card .campaign-content .campaign-rewards p,
-.campaign-view .campaign-card .campaign-content .campaign-pledges p {
+.campaign-view .campaign-container .campaign-content .campaign-user p,
+.campaign-view .campaign-container .campaign-content .campaign-rewards p,
+.campaign-view .campaign-container .campaign-content .campaign-pledges p {
   margin: 0.3rem 0;
   font-size: 0.95rem;
   color: #444;
 }
-.campaign-view .campaign-card .campaign-content .back-btn {
+.campaign-view .campaign-container .campaign-content .campaign-user li,
+.campaign-view .campaign-container .campaign-content .campaign-rewards li,
+.campaign-view .campaign-container .campaign-content .campaign-pledges li {
+  margin-left: 10px;
+  padding: 10px 0;
+  list-style-type: none;
+}
+.campaign-view .campaign-container .campaign-content .campaign-user li .reward-amount,
+.campaign-view .campaign-container .campaign-content .campaign-rewards li .reward-amount,
+.campaign-view .campaign-container .campaign-content .campaign-pledges li .reward-amount {
+  color: #3d5476;
+  font-weight: 700;
+}
+.campaign-view .campaign-container .campaign-content .back-btn {
   margin-top: 2rem;
   padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 0.5rem;
-  background: #007bff;
   color: #fff;
   cursor: pointer;
   font-size: 1rem;
 }
-.campaign-view .campaign-card .campaign-content .back-btn:hover {
-  background: #0056b3;
-}
-.campaign-view .campaign-card form {
+.campaign-view .campaign-container form {
   display: flex;
   gap: 0.5rem;
 }
-.campaign-view .campaign-card form input {
+.campaign-view .campaign-container form input {
   flex: 1;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 0.4rem;
   font-size: 0.9rem;
 }
-.campaign-view .campaign-card form button {
+.campaign-view .campaign-container form button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.5rem;
-  background: #28a745;
   color: #fff;
   cursor: pointer;
   font-size: 0.9rem;
 }
-.campaign-view .campaign-card form button:hover {
-  background: #218838;
+.users-section {
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.users-section h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.users-table th,
+.users-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+.users-table thead {
+  background: #3d5476;
+  color: #fff;
+}
+.users-table thead th {
+  font-weight: bold;
+}
+.users-table tbody tr:hover {
+  background: #f1f1f1;
+}
+.users-table tbody tr td.total {
+  font-weight: bold;
+  color: green;
 }/*# sourceMappingURL=main.css.map */

@@ -1,4 +1,5 @@
 import AuthService from "./AuthUser.js";
+import Utilities from "./utilities.js";
 const authService = new AuthService();
 class Home {
   #campaignsContainer = document.getElementById("campaignsContainer");
@@ -11,7 +12,7 @@ class Home {
 
   async setLastCampaigns() {
     const response = await fetch(
-      `http://localhost:3000/campaigns?_embed=rewards&isApproved=true&_limit=3`
+      `http://localhost:3000/campaigns?_embed=rewards&isApproved=true&_limit=5`
     );
     const data = await response.json();
     this.lastCampaigns = data;
@@ -39,7 +40,7 @@ class Home {
             </div>`;
   }
 
-  renderCardRewards(rewards) {
+  renderRewardsCards(rewards) {
     if (rewards.length > 0) {
       return `<div className="rewards">
           ${rewards.map((r) => this.renderSingleReward(r)).join("")}
@@ -52,16 +53,21 @@ class Home {
   renderCampaignCard(campaign) {
     return `
    <div class="campaign-card">
+   <a href="./campaigns/view/?id=${campaign.id}" class="reset-anchor">
    <img src="${campaign.image}" alt="${campaign.title}">
    <div class="campaign-content">
         <h3>${campaign.title}</h3>
         <p>${campaign.description}</p>
         <div class="campaign-meta">
           <strong>Goal:</strong> ${campaign.goal} <br>
+          <strong>Achieved:</strong> ${Utilities.sumRewards(
+            campaign.rewards
+          )} <br>
           <strong>Deadline:</strong> ${campaign.deadline}
         </div>
-        ${this.renderCardRewards(campaign.rewards)}
+        ${this.renderRewardsCards(campaign.rewards)}
       </div>
+      </a>
     </div>
     `;
   }

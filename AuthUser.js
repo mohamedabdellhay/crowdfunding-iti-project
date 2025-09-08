@@ -29,6 +29,7 @@ class AuthService {
     this.tokenID = null;
     this.userName = null;
     this.userEmail = null;
+    this.userId = null;
   }
 
   getStorage() {
@@ -36,6 +37,7 @@ class AuthService {
     this.tokenID = localStorage.getItem("tokenID");
     this.userName = localStorage.getItem("userName");
     this.userEmail = localStorage.getItem("userEmail");
+    this.userId = localStorage.getItem("userId");
   }
 
   async userAuthorization(token) {

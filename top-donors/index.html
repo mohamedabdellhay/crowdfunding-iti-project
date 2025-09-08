@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../sass/main.css">
-    <link rel="stylesheet" href="../../style.css">
-    <script src="../../main.js" defer></script>
-    <script src="./viewCampaign.js" defer type="module"></script>
+    <link rel="stylesheet" href="../sass/main.css">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../main.js" defer></script>
+    <script src="./top-donors.js" defer type="module"></script>
 
     <!-- global script -->
-    <script src="../../script.js" defer></script>
-    <title>Campaign | </title>
+    <script src="../script.js" defer></script>
+    <title>Top Donors</title>
 </head>
 
 <body>
@@ -23,15 +23,15 @@
                     <div class="flex space-between .align-center">
                         <div class="flex justify-center align-center gap-10">
                             <span>
-                                <img src="../../images/logo.png" alt="" width="20" class="logo">
+                                <img src="../images/logo.png" alt="" width="20" class="logo">
                             </span>
-                            <a href="../../">Fundstart</a>
+                            <a href="../">Fundstart</a>
                         </div>
                         <div>
                             <ul class="flex space-between align-center flex-grow-1">
-                                <li><a href="../../dashboard/">Dashboard</a></li>
-                                <li><a href="../">Campaigns</a></li>
-                                <li><a href="../../top-donors/">Top donors</a></li>
+                                <li><a href="../dashboard/">Dashboard</a></li>
+                                <li><a href="../campaigns/">Campaigns</a></li>
+                                <li><a href="./">Top donors</a></li>
                             </ul>
                         </div>
                     </div>
@@ -101,22 +101,27 @@
 
 
     <main>
-        <div class="container">
-            <section class="campaign-view">
 
+        <div class="container">
+            <section class="users-section">
+                <h2>Users Rewards Top Rated</h2>
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Rewards Count</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topDonorsTableBody">
+
+                    </tbody>
+                </table>
             </section>
         </div>
 
-
     </main>
-
-
-
-
-
-
-
-
 
 
 
@@ -126,7 +131,7 @@
     <footer>
         <div class="footer container">
             <div class="logo">
-                <img src="../../images/white-logo.png" alt="logo" />
+                <img src="../images/white-logo.png" alt="logo" />
                 <span>Fundstart</span>
             </div>
             <div class="copyright">

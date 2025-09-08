@@ -1,4 +1,5 @@
 import AuthService from "../AuthUser.js";
+import Utilities from "../utilities.js";
 const authService = new AuthService();
 
 console.log("start campaigns");
@@ -187,6 +188,8 @@ class CampaignManager {
   static async fetchCampaignById(id) {
     const response = await fetch(`http://localhost:3000/campaigns/${id}`);
     const data = await response.json();
+    console.log("data", data);
+
     return data;
   }
 }
@@ -260,15 +263,22 @@ function renderCreateCampaignBtn(isLoggedIn) {
 function listenForFormSubmit() {
   document.forms[0].addEventListener("submit", async function (event) {
     event.preventDefault();
-    const data = await CampaignManager.createNewCampaign();
+    let data = await CampaignManager.createNewCampaign();
     console.log("form data", data);
     console.log(this.method);
     if (this.method === "post") {
       console.log("start edit campaign");
+      // return;
+      if (data.image === null) {
+        data = Utilities.removeImageField(data);
+      }
+      console.log("new data: ", data);
+
+      // return;
       const newCampaign = await fetch(
         `http://localhost:3000/campaigns/${location.hash.slice(1)}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },

@@ -1,0 +1,45 @@
+.users-section {
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th,
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  thead {
+    background: $main-color;
+    color: #fff;
+    th {
+      font-weight: bold;
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background: #f1f1f1;
+      }
+
+      td.total {
+        font-weight: bold;
+        color: green;
+      }
+    }
+  }
+}

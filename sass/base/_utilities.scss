@@ -67,4 +67,11 @@
 }
 .reset-anchor {
   text-decoration: none;
+  color: inherit;
+}
+.bg-primary {
+  background-color: #3d5476;
+  &:hover {
+    background-color: #345991;
+  }
 }
