@@ -114,7 +114,9 @@ class Campaign {
                 <label style="display:inline-flex;align-items:center;gap:8px">
                     <input type="checkbox" class="switch" ${
                       this.isApproved ? "checked" : ""
-                    } data-action="toggle-approved" data-id="${this.id}">
+                    } data-action="toggle-approved" data-id="${
+      this.id
+    }" disabled>
                 </label>
             </td>
             <td>${rewardsHtml || '<span class="tag">No rewards</span>'}</td>
@@ -178,9 +180,9 @@ class CampaignManager {
   }
 
   renderTable() {
-    const campaignsHtml = this.campaigns.map((campaign) =>
-      campaign.generateTableRow()
-    );
+    const campaignsHtml = this.campaigns
+      .map((campaign) => campaign.generateTableRow())
+      .join("");
     console.log("campaigns", campaignsHtml);
     DOM_SELECTION.tableBody.innerHTML = campaignsHtml;
   }

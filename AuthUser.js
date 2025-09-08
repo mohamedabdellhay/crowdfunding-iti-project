@@ -1,3 +1,6 @@
+import Reward from "./RewardController.js";
+import Utilities from "./utilities.js";
+
 class AuthConfig {
   static api = {
     baseURL: "http://localhost:3000",
@@ -30,6 +33,7 @@ class AuthService {
     this.userName = null;
     this.userEmail = null;
     this.userId = null;
+    this.latestRewards = [];
   }
 
   getStorage() {
@@ -111,12 +115,59 @@ class AuthService {
     return this._isLoggedIn;
   }
 
+  renderSingleNotification(reward) {
+    return `
+      <li class="notification-item">
+        
+        <div class="notification-content">
+          <p><span class="username">${reward.user.name}</span> Reward ${
+      reward.campaign.title
+    }: ${reward.amount}$</p>
+          <small>${reward.title}</small>
+        </div>
+        <span class="time">${Utilities.timeAgo(reward.date)}</span>
+      </li>
+    `;
+  }
+
+  async setLatestRewards() {
+    return await Reward.fetchLatestRewards();
+  }
+  renderLatestRewards(data) {
+    return `
+     <ul class="notifications-list">${data
+       .map((ele) => this.renderSingleNotification(ele))
+       .join("")}</ul>
+    `;
+  }
+
+  async renderLatestRewardsHTML() {
+    const data = await this.setLatestRewards();
+    console.log("data", data);
+    document.getElementById("notifications-content").innerHTML =
+      this.renderLatestRewards(data);
+  }
   renderUserStatus() {
     return `<ul class="flex space-between align-center">
-            <li><svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9.83333 1.66663L1.5 11.6666H9L8.16667 18.3333L16.5 8.33329H9L9.83333 1.66663Z"
-                        stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
-                </svg></li>
+            <li class="notification-toggler">
+                  <div class="relative">
+                  <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.83333 1.66663L1.5 11.6666H9L8.16667 18.3333L16.5 8.33329H9L9.83333 1.66663Z"
+                          stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  
+                    <div class="absolute notifications nav-action hidden" id="notifications">
+                      <div class="notifications-header">
+                        <h3>Latest Rewards</h3>
+                        <span class="search-icon"></span>
+                      </div>
+                        <div id="notifications-content"></div>
+                      <div class="notifications-footer">
+                        <a href="#">See all Rewarding Notifications</a>
+                      </div>
+                    </div>
+                  <div>
+            </li>
             <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_1203_662)">
                         <path
@@ -156,6 +207,7 @@ class AuthService {
             </li>
         </ul>`;
   }
+
   renderGestStatus() {
     return `<ul class="flex align-center justify-end">
                 <li><a href="/login/">Login</a></li>
@@ -166,7 +218,15 @@ class AuthService {
   async renderHeder() {
     await this.userAuthorization(this.token());
     if (this.isLoggedIn) {
+      this.renderLatestRewardsHTML();
       AuthConfig.ui.containerSelector.innerHTML = this.renderUserStatus();
+      document.addEventListener("click", function (event) {
+        if (event.target.closest(".notification-toggler")) {
+          document.getElementById("notifications").classList.toggle("hidden");
+        } else {
+          document.getElementById("notifications").classList.add("hidden");
+        }
+      });
     } else {
       AuthConfig.ui.containerSelector.innerHTML = this.renderGestStatus();
     }

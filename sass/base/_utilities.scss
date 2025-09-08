@@ -75,3 +75,19 @@
     background-color: #345991;
   }
 }
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+  top: 30px;
+  right: -30px;
+}
+.nav-action {
+  min-width: 300px;
+  background-color: #fff;
+  z-index: 1500;
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

@@ -132,11 +132,15 @@ class Campaign {
                     ${this.renderRewards(campaign.rewards)}
 
                     <!-- Add Reward Form -->
-                    <form id="reward-form">
+                    ${
+                      authService.isLoggedIn
+                        ? `<form id="reward-form">
                         <input type="text" id="reward-title" placeholder="Reward Title" required>
                         <input type="number" id="reward-amount" placeholder="Amount ($)" required>
                         <button type="button" class="bg-primary">+ Add Reward</button>
-                    </form>
+                    </form>`
+                        : ``
+                    }
                 </div>
 
                 <!-- Pledges

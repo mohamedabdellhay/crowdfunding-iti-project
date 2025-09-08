@@ -498,12 +498,13 @@ let userStatus = null;
             <td>${user.email || ""}</td>
             <td>
                 <select class="select" data-bind="role" data-id="${user.id}">
+                 <option ${
+                   user.role === "user" ? "selected" : ""
+                 } value="user">user</option>
                     <option ${
                       user.role === "admin" ? "selected" : ""
                     } value="admin">admin</option>
-                    <option ${
-                      user.role === "user" ? "selected" : ""
-                    } value="user">user</option>
+                   
                 </select>
             </td>
             <td>

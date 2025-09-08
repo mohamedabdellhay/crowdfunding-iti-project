@@ -55,7 +55,11 @@ const login = async function (credentials) {
     localStorage.setItem("userEmail", data.user.email);
     localStorage.setItem("role", data.user.role);
     console.log("Login Response:", data);
-    window.location.href = "/dashboard";
+    if (data.user.role === "admin") {
+      window.location.href = "/dashboard";
+      return;
+    }
+    window.location.href = window.history.back();
   } catch (error) {
     console.error("Error:", error);
   }
