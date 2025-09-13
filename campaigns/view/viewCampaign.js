@@ -40,28 +40,31 @@ document.addEventListener("click", async function (event) {
 
 class Campaign {
   #campaignContainer = document.querySelector(".campaign-view");
-  constructor(camp) {
-    this.title = camp.title;
-    this.description = camp.description;
-    this.image = camp.image;
-    this.goal = camp.goal;
-    this.isApproved = camp.isApproved;
-    this.deadline = camp.deadline;
-    this.rewards = camp.rewards;
-    this.user = {
-      name: camp.user.name,
-      email: camp.user.email,
-    };
+
+  async fetchCampaign(campaignId) {
+    let response = await fetch(
+      `http://localhost:3000/campaigns/${campaignId}?_expand=user&_embed=pledges&_embed=rewards&isApprovedtrue`
+    );
+    if (response.status != 200) {
+      console.log("campaign not found");
+      this.#campaignContainer.innerHTML = `<div class="error-message">
+        <h1>Campaign Not Found</h1>
+        <p>The campaign you are looking for does not exist or may have been removed.</p>
+        <p><a href="/">Return to Homepage</a></p>
+    </div>`;
+      throw new Error("campaign not found");
+    }
+    return await response.json();
   }
 
   renderImage(src, alt) {
     return `<img src="${src}" alt="${alt}">`;
   }
 
-  renderDetails(goal, deadline, status) {
+  renderDetails(goal, rewards, deadline, status) {
     return `
         <p><strong>Goal:</strong> ${goal}$</p>
-        <p><strong>Achieved:</strong> ${Utilities.sumRewards(this.rewards)}$</p>
+        <p><strong>Achieved:</strong> ${Utilities.sumRewards(rewards)}$</p>
         <p><strong>Deadline:</strong> ${deadline}</p>
         <p>
             <strong>Status:</strong>
@@ -77,6 +80,13 @@ class Campaign {
   }
 
   renderUserInfo(user) {
+    const userID = window.localStorage.getItem("userId");
+    if (user.id == userID) {
+      return `
+        <h3>Creator Info</h3>
+        <p><strong>Created By: </strong>You</p>
+    `;
+    }
     return `
         <h3>Creator Info</h3>
         <p><strong>Name:</strong> ${user.name}</p>
@@ -109,12 +119,13 @@ class Campaign {
             </div>
             <!-- Campaign Info -->
             <div class="campaign-content">
-                <h2>${this.title}</h2>
-                <p class="description">${this.description}</p>
+                <h2>${campaign.title}</h2>
+                <p class="description">${campaign.description}</p>
 
                 <div class="campaign-details">
                     ${this.renderDetails(
                       campaign.goal,
+                      campaign.rewards,
                       campaign.deadline,
                       campaign.isApproved
                     )}
@@ -160,6 +171,7 @@ class Campaign {
   renderCampaign(data) {
     document.title = `Campaign | ${this.title}`;
     this.#campaignContainer.innerHTML = "";
+
     this.#campaignContainer.insertAdjacentHTML(
       "afterbegin",
       this.createCampaignHTML(data)
@@ -171,12 +183,11 @@ class Campaign {
   authService.getStorage();
   await authService.renderHeder();
   // get campaign id
-
-  const response = await fetch(
-    `http://localhost:3000/campaigns/${campaignId}?_expand=user&_embed=pledges&_embed=rewards&isApprovedtrue`
-  );
-  const campaignData = await response.json();
-
-  const campaign = new Campaign(campaignData);
-  campaign.renderCampaign(campaignData);
+  try {
+    const campaign = new Campaign();
+    const campaignData = await campaign.fetchCampaign(campaignId);
+    campaign.renderCampaign(campaignData);
+  } catch (err) {
+    console.log("err ", err);
+  }
 })();

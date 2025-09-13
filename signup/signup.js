@@ -73,7 +73,7 @@ async function registerUser(data) {
 
     // Save the access token
     // localStorage.setItem("accessToken", result.accessToken);
-
+    window.history.pushState("./");
     window.location.href = "/login";
   } catch (error) {
     console.error("Error:", error);

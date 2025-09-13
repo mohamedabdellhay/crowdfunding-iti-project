@@ -45,6 +45,11 @@ class Utilities {
     const years = Math.floor(days / 365);
     return `from ${years} year${years !== 1 ? "s" : ""} ago`;
   }
+  static hasEmptyFields(obj) {
+    return Object.entries(obj).some(([key, value]) => {
+      return value === null || value === "";
+    });
+  }
 }
 
 export default Utilities;

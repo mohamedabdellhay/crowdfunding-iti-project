@@ -43,10 +43,10 @@ class Home {
   renderRewardsCards(rewards) {
     if (rewards.length > 0) {
       return `<div className="rewards">
-          ${rewards.map((r) => this.renderSingleReward(r)).join("")}
+          <strong>Pledges: </strong>${rewards.length}
         </div>`;
     } else {
-      return `<div className="rewards">No rewards listed.</div>`;
+      return `<div className="rewards">No pledges listed.</div>`;
     }
   }
 
@@ -91,8 +91,10 @@ class Home {
   renderRewardCard(reward) {
     return `
       <div class="reward-card">
+         <div style="display: flex;justify-content: space-between;align-items: center;">
           <h3>${reward.title}</h3>
-          <p>Amount: $${reward.amount}</p>
+          <p>$${reward.amount}</p>
+         </div>
           <small>Campaign: ${reward.campaign.title}</small>
       </div>
     `;

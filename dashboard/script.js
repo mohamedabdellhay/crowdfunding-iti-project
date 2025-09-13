@@ -115,7 +115,7 @@ let userStatus = null;
                 <button class="tab active" data-tab="Overview">Overview</button>
                 <button class="tab" data-tab="Users">Users</button>
                 <button class="tab" data-tab="Campaigns">Campaigns</button>
-                <button class="tab" data-tab="Rewards">Rewards</button>
+                <button class="tab" data-tab="Rewards">Pledges</button>
             </nav>
 
             <section id="Overview" class="tab-panel">
@@ -131,7 +131,7 @@ let userStatus = null;
                         <div class="footer-note">Approved & pending</div>
                     </div>
                     <div class="stat">
-                        <div class="label">Rewards</div>
+                        <div class="label">Pledges</div>
                         <div class="value" id="statRewards">0</div>
                         <div class="footer-note">Total records</div>
                     </div>
@@ -184,7 +184,7 @@ let userStatus = null;
                                 <th>Goal</th>
                                 <th>Deadline</th>
                                 <th>Approved</th>
-                                <th>Rewards</th>
+                                <th>Pledges</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -202,10 +202,10 @@ let userStatus = null;
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Campaign</th>
+                                <th>Pledge</th>
                                 <th>User</th>
                                 <th>Amount</th>
-                                <th>Reward</th>
+                                <th>Campaign</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -568,7 +568,7 @@ let userStatus = null;
             <td class="actions">
                 <button class="icon-btn" data-action="add-reward" data-id="${
                   campaign.id
-                }">Add Reward</button>
+                }">Add Pledge</button>
                 <button class="icon-btn" data-action="delete-campaign" data-id="${
                   campaign.id
                 }">Delete</button>
@@ -686,7 +686,7 @@ let userStatus = null;
 
         const Rewards = await Utils.withErrorHandling(
           () => DatabaseOperations.Rewards.getAll(),
-          "Failed to load Rewards"
+          "Failed to load Pledges"
         );
 
         if (Rewards) {
@@ -873,9 +873,9 @@ let userStatus = null;
           break;
 
         case "add-reward":
-          const title = prompt("Reward title?");
+          const title = prompt("Pledge title?");
           if (!title) return;
-          const amount = Number(prompt("Reward amount?") || "0");
+          const amount = Number(prompt("Pledge amount?") || "0");
 
           await Utils.withErrorHandling(async () => {
             const reward = await DatabaseOperations.campaigns.addReward(id, {
@@ -889,7 +889,7 @@ let userStatus = null;
               campaign.rewards.push(reward);
             }
             await Renderer.renderCampaigns();
-          }, "Failed to add reward");
+          }, "Failed to add Pledge");
           break;
       }
     },

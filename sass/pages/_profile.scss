@@ -3,18 +3,18 @@
   padding: 20px;
   border-radius: 14px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 
   .profile-header {
     display: flex;
     align-items: center;
     gap: 15px;
 
-    .avatar {
+    .user-avatar {
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: #007bff;
+      background: #3d5476;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -58,7 +58,7 @@
         font-weight: 600;
       }
       .value.valid {
-        color: #007bff;
+        color: #3d5476;
       }
     }
   }
@@ -76,7 +76,7 @@
       transition: 0.3s;
 
       &.primary {
-        background: #007bff;
+        background: #3d5476;
         color: #fff;
       }
       &.secondary {
@@ -181,7 +181,7 @@
       }
 
       input:checked + .switch-slider {
-        background: #28a745;
+        background: #3d5476;
       }
 
       input:checked + .switch-slider::before {

@@ -115,13 +115,16 @@ class AuthService {
   }
 
   renderSingleNotification(reward) {
+    const userId = localStorage.getItem("userId");
     return `
       <li class="notification-item">
         
         <div class="notification-content">
-          <p><span class="username">${reward.user.name}</span> Reward ${
+          <p><span class="username">${
+            reward.user.id == userId ? "You" : reward.user.name
+          }</span> Reward <span class="username">${
       reward.campaign.title
-    }: ${reward.amount}$</p>
+    }</span>: ${reward.amount}$</p>
           <small>${reward.title}</small>
         </div>
         <span class="time">${Utilities.timeAgo(reward.date)}</span>
@@ -132,6 +135,7 @@ class AuthService {
   async setLatestRewards() {
     return await Notifications.fetchLatestRewards();
   }
+
   renderLatestRewards(data) {
     return `
      <ul class="notifications-list">${data
@@ -150,6 +154,7 @@ class AuthService {
   async setUserNotifications(userId) {
     return await Notifications.fetchAllNotifications(userId);
   }
+
   async renderAllNotifications(userId) {
     const data = await this.setUserNotifications(userId);
     // console.log("data<######>", data);
@@ -181,7 +186,9 @@ class AuthService {
                     </div>
                   <div>
             </li>
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <li>
+            <a href="/settings">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_1203_662)">
                         <path
                             d="M10.0002 12.5C11.3809 12.5 12.5002 11.3808 12.5002 10C12.5002 8.61933 11.3809 7.50004 10.0002 7.50004C8.61945 7.50004 7.50016 8.61933 7.50016 10C7.50016 11.3808 8.61945 12.5 10.0002 12.5Z"
@@ -195,7 +202,9 @@ class AuthService {
                             <rect width="20" height="20" fill="white" />
                         </clipPath>
                     </defs>
-                </svg></li>
+                </svg>
+            </a>
+                </li>
             <li class="user-notification-toggler">
               <div class="relative">
                <span class="red-notification">
@@ -229,8 +238,22 @@ class AuthService {
                 </div>
                 <div class="user-actions hidden">
                     <ul>
-                        <li><a class="logout-btn font-500">Logout</a></li>
-                        <li><a href="http://127.0.0.1:8080/profile" class="font-500">Profile</a></li>
+                        <li><a class="logout-btn font-500" style='display:block'>
+                        <div style="display: flex;align-items: center;gap: 10px;">
+                          <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#3d5476"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
+                          </span>
+                          <span>Logout</span>
+                        </div>
+                        </a></li>
+                        <li><a href="http://127.0.0.1:8080/profile" class="font-500" style='display:block'>
+                        <div style="display: flex;align-items: center;gap: 10px;">
+                          <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#3d5476"><path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"/></svg>
+                          </span>
+                        <div>
+                        <span>Profile</span>
+                        </a></li>
                     </ul>
                 </div>
             </li>
@@ -240,7 +263,7 @@ class AuthService {
   renderGestStatus() {
     return `<ul class="flex align-center justify-end">
                 <li><a href="/login/">Login</a></li>
-                <li><a href="./signup/">Register</a></li>
+                <li><a href="/signup/">Register</a></li>
             </ul>`;
   }
 
@@ -280,14 +303,3 @@ class AuthService {
 }
 
 export default AuthService;
-// const authService = new AuthService();
-
-// (async function () {
-//   authService.getStorage();
-//   await authService.renderHeder();
-//   console.log("isLogged", authService.isLoggedIn);
-//   console.log(
-//     "user authorization",
-//     await authService.userAuthorization(authService.token())
-//   );
-// })();

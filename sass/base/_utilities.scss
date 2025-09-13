@@ -92,3 +92,15 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.campaigns-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.position-sticky {
+  position: sticky;
+  top: 0px;
+  z-index: 998;
+  border-radius: 0 0 5px 5px !important;
+}
