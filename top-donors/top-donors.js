@@ -20,9 +20,13 @@ class TopDonors {
         const name = ele.name;
         const email = ele.email;
         const rewardsCount = ele.rewards.length;
-        const sumRewards = ele.rewards
-          .map((ele) => Number(ele.amount))
-          .reduce((a, c) => a + c);
+        console.log(ele.rewards);
+
+        const rewards = ele.rewards.map((ele) => Number(ele.amount));
+
+        const sumRewards =
+          rewards.length == 0 ? 0 : rewards.reduce((a, c) => a + c);
+
         return {
           name,
           email,

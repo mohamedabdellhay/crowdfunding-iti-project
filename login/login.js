@@ -59,7 +59,7 @@ const login = async function (credentials) {
       window.location.href = "/dashboard";
       return;
     }
-    window.location.href = window.history.back();
+    window.location.href = window.history.back().back();
   } catch (error) {
     console.error("Error:", error);
   }

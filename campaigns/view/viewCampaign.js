@@ -1,5 +1,5 @@
 import AuthService from "../../AuthUser.js";
-import RewardController from "../../RewardController.js";
+import RewardController from "../../NotificationsController.js";
 import Utilities from "../../utilities.js";
 console.log("start campaign view");
 
@@ -133,7 +133,8 @@ class Campaign {
 
                     <!-- Add Reward Form -->
                     ${
-                      authService.isLoggedIn
+                      authService.isLoggedIn &&
+                      authService.userId != campaign.userId
                         ? `<form id="reward-form">
                         <input type="text" id="reward-title" placeholder="Reward Title" required>
                         <input type="number" id="reward-amount" placeholder="Amount ($)" required>

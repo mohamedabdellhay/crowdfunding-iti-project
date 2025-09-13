@@ -1,4 +1,4 @@
-class Reward {
+class Notifications {
   static async insertReward(rewardData) {
     // console.log(rewardData);
     const title = rewardData.title;
@@ -27,6 +27,15 @@ class Reward {
     const data = await response.json();
     return data;
   }
+
+  static async fetchAllNotifications(userId) {
+    const API = `http://localhost:3000/rewards?_expand=campaign&_expand=user&_sort=date&_order=desc`;
+    console.log("API", API);
+
+    const response = await fetch(API);
+    const data = await response.json();
+    return data.filter((reward) => reward.campaign.userId == userId);
+  }
 }
 
-export default Reward;
+export default Notifications;

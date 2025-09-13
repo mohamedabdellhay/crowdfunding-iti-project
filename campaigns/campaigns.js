@@ -162,12 +162,14 @@ class CampaignManager {
       goal: formData.amount.value,
       deadline: formData.deadline.value,
       isApproved: false,
+      date: new Date(),
     };
   }
 
   async fetchAllCampaigns() {
     // http://localhost:3000/campaigns?_expand=user&_embed=pledges&&_embed=rewards
-    const api = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.campaigns}&isApproved=${API_CONFIG.query.isApproved}`;
+    // http://localhost:3000/campaigns?userId=2&_sort=date&_order=desc&_embed=rewards
+    const api = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.campaigns}&isApproved=${API_CONFIG.query.isApproved}&_sort=date&_order=desc`;
     console.log("api", api);
 
     const data = await fetch(api);

@@ -7,7 +7,7 @@ const API_CONFIG = {
   endpoints: {
     users: "users",
     campaigns: "campaigns",
-    pledges: "pledges",
+    Rewards: "rewards",
   },
   headers: {
     "Content-Type": "application/json",
@@ -115,7 +115,7 @@ let userStatus = null;
                 <button class="tab active" data-tab="Overview">Overview</button>
                 <button class="tab" data-tab="Users">Users</button>
                 <button class="tab" data-tab="Campaigns">Campaigns</button>
-                <button class="tab" data-tab="Pledges">Pledges</button>
+                <button class="tab" data-tab="Rewards">Rewards</button>
             </nav>
 
             <section id="Overview" class="tab-panel">
@@ -131,8 +131,8 @@ let userStatus = null;
                         <div class="footer-note">Approved & pending</div>
                     </div>
                     <div class="stat">
-                        <div class="label">Pledges</div>
-                        <div class="value" id="statPledges">0</div>
+                        <div class="label">Rewards</div>
+                        <div class="value" id="statRewards">0</div>
                         <div class="footer-note">Total records</div>
                     </div>
                 </div>
@@ -193,12 +193,12 @@ let userStatus = null;
                 </div>
             </section>
 
-            <section id="Pledges" class="tab-panel" hidden>
+            <section id="Rewards" class="tab-panel" hidden>
                 <div class="card">
                     <div class="toolbar">
-                        <input id="pledgeSearch" class="input" placeholder="Search by campaign or user id" />
+                        <input id="Rewardsearch" class="input" placeholder="Search by campaign or user id" />
                     </div>
-                    <table class="table" id="pledgesTable">
+                    <table class="table" id="RewardsTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -253,7 +253,7 @@ let userStatus = null;
     // campaign operations object
     campaigns: {
       async getAll() {
-        const url = API_CONFIG.endpoints.campaigns;
+        const url = `${API_CONFIG.endpoints.campaigns}?_embed=rewards`;
         return await HttpClient.get(url);
       },
 
@@ -306,30 +306,30 @@ let userStatus = null;
       },
     },
 
-    // Pledge operations obj
-    pledges: {
+    // Rewards operations obj
+    Rewards: {
       async getAll() {
-        const url = API_CONFIG.endpoints.pledges;
+        const url = API_CONFIG.endpoints.Rewards;
         return await HttpClient.get(url);
       },
 
       async findById(id) {
-        return await HttpClient.get(`${API_CONFIG.endpoints.pledges}/${id}`);
+        return await HttpClient.get(`${API_CONFIG.endpoints.Rewards}/${id}`);
       },
 
       async create(pledgeData) {
-        return await HttpClient.post(API_CONFIG.endpoints.pledges, pledgeData);
+        return await HttpClient.post(API_CONFIG.endpoints.Rewards, pledgeData);
       },
 
       async update(id, updates) {
         return await HttpClient.patch(
-          `${API_CONFIG.endpoints.pledges}/${id}`,
+          `${API_CONFIG.endpoints.Rewards}/${id}`,
           updates
         );
       },
 
       async delete(id) {
-        return await HttpClient.delete(`${API_CONFIG.endpoints.pledges}/${id}`);
+        return await HttpClient.delete(`${API_CONFIG.endpoints.Rewards}/${id}`);
       },
     },
   };
@@ -455,11 +455,11 @@ let userStatus = null;
   const DataCache = {
     users: [],
     campaigns: [],
-    pledges: [],
+    Rewards: [],
     lastFetch: {
       users: null,
       campaigns: null,
-      pledges: null,
+      Rewards: null,
     },
 
     isStale(type, maxAge = 5 * 60 * 1000) {
@@ -528,9 +528,9 @@ let userStatus = null;
 
     createCampaignRow: (campaign) => {
       const creator = DataCache.findById("users", campaign.userId);
-      const rewardsHtml = (campaign.rewards || [])
-        .map((r) => `<span class="tag">${r.title}: $${r.amount}</span>`)
-        .join(" ");
+      const rewardsLength = (campaign.rewards || []).length;
+      // .map((r) => `<span class="tag">${r.title}: $${r.amount}</span>`)
+      // .join(" ");
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -564,7 +564,7 @@ let userStatus = null;
                     } data-action="toggle-approved" data-id="${campaign.id}">
                 </label>
             </td>
-            <td>${rewardsHtml || '<span class="tag">No rewards</span>'}</td>
+            <td><span class="tag">${rewardsLength} Rew</span></td>
             <td class="actions">
                 <button class="icon-btn" data-action="add-reward" data-id="${
                   campaign.id
@@ -578,19 +578,22 @@ let userStatus = null;
     },
 
     createPledgeRow: (pledge) => {
+      console.log(pledge);
+
       const campaign = DataCache.findById("campaigns", pledge.campaignId);
+      console.log("campaign", campaign);
+
       const user = DataCache.findById("users", pledge.userId);
-      const reward = (campaign?.rewards || []).find(
-        (r) => r.id === pledge.rewardId
-      );
+      const reward = (campaign?.rewards || []).find((r) => r.id === pledge.id);
+      console.log("reward", reward);
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
             <td>${pledge.id}</td>
-            <td>${campaign ? campaign.title : "—"} (#${pledge.campaignId})</td>
+            <td>${reward ? reward.title : "—"}</td>
             <td>${user ? user.name : "—"} (#${pledge.userId})</td>
             <td>$${pledge.amount || 0}</td>
-            <td>${reward ? reward.title : "—"}</td>
+            <td>${campaign ? campaign.title : "—"} (#${pledge.campaignId})</td>
         `;
       return tr;
     },
@@ -606,8 +609,8 @@ let userStatus = null;
       if (campaignsElement)
         campaignsElement.textContent = DataCache.campaigns.length;
 
-      const pledgesElement = Utils.$("#statPledges");
-      if (pledgesElement) pledgesElement.textContent = DataCache.pledges.length;
+      const RewardsElement = Utils.$("#statRewards");
+      if (RewardsElement) RewardsElement.textContent = DataCache.Rewards.length;
     },
 
     async renderUsers(forceRefresh = false) {
@@ -674,28 +677,28 @@ let userStatus = null;
       await this.setStats();
     },
 
-    async renderPledges(forceRefresh = false) {
-      const body = Utils.$("#pledgesTable tbody");
+    async renderRewards(forceRefresh = false) {
+      const body = Utils.$("#RewardsTable tbody");
       if (!body) return;
 
-      if (DataCache.isStale("pledges") || forceRefresh) {
-        LoadingState.showSpinner("#pledgesTable tbody");
+      if (DataCache.isStale("Rewards") || forceRefresh) {
+        LoadingState.showSpinner("#RewardsTable tbody");
 
-        const pledges = await Utils.withErrorHandling(
-          () => DatabaseOperations.pledges.getAll(),
-          "Failed to load pledges"
+        const Rewards = await Utils.withErrorHandling(
+          () => DatabaseOperations.Rewards.getAll(),
+          "Failed to load Rewards"
         );
 
-        if (pledges) {
-          DataCache.set("pledges", pledges);
+        if (Rewards) {
+          DataCache.set("Rewards", Rewards);
         }
       }
 
-      const query = Utils.$("#pledgeSearch")?.value?.trim() || "";
+      const query = Utils.$("#Rewardsearch")?.value?.trim() || "";
 
-      let pledges = DataCache.get("pledges");
+      let Rewards = DataCache.get("Rewards");
       if (query) {
-        pledges = pledges.filter((p) =>
+        Rewards = Rewards.filter((p) =>
           [p.campaignId, p.userId, String(p.amount)].some((v) =>
             String(v).includes(query)
           )
@@ -703,7 +706,7 @@ let userStatus = null;
       }
 
       body.innerHTML = "";
-      pledges.forEach((pledge) => {
+      Rewards.forEach((pledge) => {
         body.appendChild(UIComponents.createPledgeRow(pledge));
       });
 
@@ -714,7 +717,7 @@ let userStatus = null;
       await Promise.all([
         this.renderUsers(true),
         this.renderCampaigns(true),
-        this.renderPledges(true),
+        this.renderRewards(true),
       ]);
       ErrorHandler.show("Data refreshed successfully", "success");
     },
@@ -747,8 +750,8 @@ let userStatus = null;
         case "Campaigns":
           await Renderer.renderCampaigns();
           break;
-        case "Pledges":
-          await Renderer.renderPledges();
+        case "Rewards":
+          await Renderer.renderRewards();
           break;
       }
     },
@@ -903,15 +906,15 @@ let userStatus = null;
     async loadInitialData() {
       try {
         // Load all data in parallel
-        const [users, campaigns, pledges] = await Promise.all([
+        const [users, campaigns, Rewards] = await Promise.all([
           DatabaseOperations.users.getAll().catch(() => []),
           DatabaseOperations.campaigns.getAll().catch(() => []),
-          DatabaseOperations.pledges.getAll().catch(() => []),
+          DatabaseOperations.Rewards.getAll().catch(() => []),
         ]);
 
         DataCache.set("users", users);
         DataCache.set("campaigns", campaigns);
-        DataCache.set("pledges", pledges);
+        DataCache.set("Rewards", Rewards);
       } catch (error) {
         console.error("Failed to load initial data:", error);
         ErrorHandler.show(
@@ -944,8 +947,8 @@ let userStatus = null;
         () => Renderer.renderCampaigns(),
         300
       );
-      const debouncedRenderPledges = Utils.debounce(
-        () => Renderer.renderPledges(),
+      const debouncedRenderRewards = Utils.debounce(
+        () => Renderer.renderRewards(),
         300
       );
 
@@ -954,9 +957,9 @@ let userStatus = null;
         "input",
         debouncedRenderCampaigns
       );
-      Utils.$("#pledgeSearch")?.addEventListener(
+      Utils.$("#Rewardsearch")?.addEventListener(
         "input",
-        debouncedRenderPledges
+        debouncedRenderRewards
       );
 
       // Refresh button

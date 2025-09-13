@@ -291,6 +291,20 @@ header a.active {
     display: block;
   }
 }
+.red-notification {
+  position: relative;
+}
+.red-notification::after {
+  content: "";
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  width: 2px;
+  height: 2px;
+}
+
 footer {
   background-color: #3d5476;
   color: #fff;

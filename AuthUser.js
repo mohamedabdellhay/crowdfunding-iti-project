@@ -1,4 +1,4 @@
-import Reward from "./RewardController.js";
+import Notifications from "./NotificationsController.js";
 import Utilities from "./utilities.js";
 
 class AuthConfig {
@@ -130,7 +130,7 @@ class AuthService {
   }
 
   async setLatestRewards() {
-    return await Reward.fetchLatestRewards();
+    return await Notifications.fetchLatestRewards();
   }
   renderLatestRewards(data) {
     return `
@@ -146,16 +146,30 @@ class AuthService {
     document.getElementById("notifications-content").innerHTML =
       this.renderLatestRewards(data);
   }
+
+  async setUserNotifications(userId) {
+    return await Notifications.fetchAllNotifications(userId);
+  }
+  async renderAllNotifications(userId) {
+    const data = await this.setUserNotifications(userId);
+    // console.log("data<######>", data);
+
+    console.log("data", data);
+    document.querySelector(
+      "#user-notifications>#notifications-content"
+    ).innerHTML = this.renderLatestRewards(data);
+  }
+
   renderUserStatus() {
     return `<ul class="flex space-between align-center">
-            <li class="notification-toggler">
+            <li class="rewards-notification-toggler">
                   <div class="relative">
                   <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9.83333 1.66663L1.5 11.6666H9L8.16667 18.3333L16.5 8.33329H9L9.83333 1.66663Z"
                           stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                   
-                    <div class="absolute notifications nav-action hidden" id="notifications">
+                    <div class="absolute notifications nav-action hidden" id="rewards-notifications">
                       <div class="notifications-header">
                         <h3>Latest Rewards</h3>
                         <span class="search-icon"></span>
@@ -182,11 +196,27 @@ class AuthService {
                         </clipPath>
                     </defs>
                 </svg></li>
-            <li><svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10.4417 17.5C10.2952 17.7525 10.0849 17.9622 9.83185 18.1079C9.57884 18.2536 9.29198 18.3303 9 18.3303C8.70802 18.3303 8.42116 18.2536 8.16814 18.1079C7.91513 17.9622 7.70484 17.7525 7.55833 17.5M14 6.66663C14 5.34054 13.4732 4.06877 12.5355 3.13109C11.5979 2.19341 10.3261 1.66663 9 1.66663C7.67392 1.66663 6.40215 2.19341 5.46447 3.13109C4.52678 4.06877 4 5.34054 4 6.66663C4 12.5 1.5 14.1666 1.5 14.1666H16.5C16.5 14.1666 14 12.5 14 6.66663Z"
-                        stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-                </svg></li>
+            <li class="user-notification-toggler">
+              <div class="relative">
+               <span class="red-notification">
+                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.4417 17.5C10.2952 17.7525 10.0849 17.9622 9.83185 18.1079C9.57884 18.2536 9.29198 18.3303 9 18.3303C8.70802 18.3303 8.42116 18.2536 8.16814 18.1079C7.91513 17.9622 7.70484 17.7525 7.55833 17.5M14 6.66663C14 5.34054 13.4732 4.06877 12.5355 3.13109C11.5979 2.19341 10.3261 1.66663 9 1.66663C7.67392 1.66663 6.40215 2.19341 5.46447 3.13109C4.52678 4.06877 4 5.34054 4 6.66663C4 12.5 1.5 14.1666 1.5 14.1666H16.5C16.5 14.1666 14 12.5 14 6.66663Z"
+                            stroke="#667085" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+               </span>
+                <div class="absolute notifications nav-action hidden" id="user-notifications">
+                      <div class="notifications-header">
+                        <h3>Notifications</h3>
+                        <span class="search-icon"></span>
+                      </div>
+                        <div id="notifications-content"></div>
+                      <div class="notifications-footer">
+                        <a href="#">See all Rewarding Notifications</a>
+                      </div>
+                    </div>
+                  <div>
+            </li>
             <li class="avatar">
                 <div style="display: flex;justify-content: center;align-items: center;gap: 5px;">
                     <span>
@@ -218,12 +248,26 @@ class AuthService {
     await this.userAuthorization(this.token());
     if (this.isLoggedIn) {
       this.renderLatestRewardsHTML();
+      this.renderAllNotifications(this.userId);
       AuthConfig.ui.containerSelector.innerHTML = this.renderUserStatus();
       document.addEventListener("click", function (event) {
-        if (event.target.closest(".notification-toggler")) {
-          document.getElementById("notifications").classList.toggle("hidden");
+        if (event.target.closest(".rewards-notification-toggler")) {
+          document
+            .getElementById("rewards-notifications")
+            .classList.toggle("hidden");
+          document.getElementById("user-notifications").classList.add("hidden");
+        } else if (event.target.closest(".user-notification-toggler")) {
+          document
+            .getElementById("user-notifications")
+            .classList.toggle("hidden");
+          document
+            .getElementById("rewards-notifications")
+            .classList.add("hidden");
         } else {
-          document.getElementById("notifications").classList.add("hidden");
+          document
+            .getElementById("rewards-notifications")
+            .classList.add("hidden");
+          document.getElementById("user-notifications").classList.add("hidden");
         }
       });
     } else {
