@@ -31,7 +31,7 @@ const util = {
 
 const DOM_SELECTION = {
   tableBody: document.querySelector("#campaignsTable>tbody"),
-  createCampaignContainer: document.getElementById("createNewCampaign"),
+  createCampaignContainer: document.querySelector(".toolbar"),
   caretCampaignBtn: document.querySelector("#createNewCampaign>button"),
   newCampaignForm: document.getElementById("newCampaign"),
   newCampaignOverLay: document.getElementById("newCampaignOverLay"),
@@ -166,10 +166,12 @@ class CampaignManager {
     };
   }
 
-  async fetchAllCampaigns() {
-    // http://localhost:3000/campaigns?_expand=user&_embed=pledges&&_embed=rewards
-    // http://localhost:3000/campaigns?userId=2&_sort=date&_order=desc&_embed=rewards
-    const api = `${API_CONFIG.baseURL}${API_CONFIG.endpoints.campaigns}&isApproved=${API_CONFIG.query.isApproved}&_sort=date&_order=desc`;
+  async fetchAllCampaigns(query = null) {
+    const api = `${API_CONFIG.baseURL}${
+      API_CONFIG.endpoints.campaigns
+    }&isApproved=${API_CONFIG.query.isApproved}&_sort=date&_order=desc${
+      query ? `&q=${query}` : ""
+    }`;
     console.log("api", api);
 
     const data = await fetch(api);
@@ -235,8 +237,13 @@ class CampaignManager {
     `;
   }
 
+  resetTable() {
+    DOM_SELECTION.campaignLength.innerHTML = "";
+    DOM_SELECTION.shownCampaigns.innerHTML = "";
+    this.#campaignsContainer.innerHTML = "";
+  }
   renderCampaigns(data) {
-    console.log("data=====>", data);
+    this.resetTable();
     DOM_SELECTION.campaignLength.innerHTML = data.length;
     DOM_SELECTION.shownCampaigns.innerHTML = data.length;
 
@@ -309,16 +316,40 @@ function domListener() {
     .addEventListener("click", function () {
       this.previousElementSibling.click();
     });
+
+  const searchInput = document.getElementById("campaignSearch");
+  let debounceTimer;
+
+  searchInput.addEventListener("input", function (event) {
+    const search = event.target.value.trim();
+
+    clearTimeout(debounceTimer);
+
+    debounceTimer = setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+
+      if (search) {
+        params.set("search", search);
+      } else {
+        params.delete("search");
+      }
+
+      window.history.replaceState({}, "", `${location.pathname}?${params}`);
+
+      runApp(search);
+    }, 500);
+  });
 }
 
 // render create campaign button
 function renderCreateCampaignBtn(isLoggedIn) {
   console.log(isLoggedIn);
-
   isLoggedIn
-    ? (DOM_SELECTION.createCampaignContainer.innerHTML =
-        ' <button class="btn createNewCampaignBtn bg-primary">Create New Campaign</button>')
-    : (DOM_SELECTION.createCampaignContainer.innerHTML = "");
+    ? DOM_SELECTION.createCampaignContainer.insertAdjacentHTML(
+        "beforeend",
+        ' <button class="btn createNewCampaignBtn bg-primary">Create New Campaign</button>'
+      )
+    : "";
 }
 
 // listen for form submit
@@ -389,12 +420,21 @@ async function editCampaign(ele) {
   await authService.renderHeder();
 
   renderCreateCampaignBtn(authService.isLoggedIn);
-
+})();
+async function runApp(search = null) {
   domListener();
   // fetch all campaigns
   const campaignManager = new CampaignManager();
-  campaignManager.fetchAllCampaigns();
-  console.log("state", APP_STATE);
+  campaignManager.fetchAllCampaigns(search);
 
   listenForFormSubmit();
-})();
+}
+
+const params = new URLSearchParams(window.location.search);
+
+const searchQuery = params.get("search");
+if (!searchQuery) {
+  runApp();
+} else {
+  runApp(searchQuery);
+}
