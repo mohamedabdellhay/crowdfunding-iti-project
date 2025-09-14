@@ -104,6 +104,47 @@
                     </li>
                 </a>
             </ul>
+            <div id="mobile-app-settings" class="mobile-settings hidden">
+                <h2>Settings</h2>
+
+                <!-- Profile -->
+                <div class="setting-item">
+                    <a href="/profile/">Profile</a>
+                </div>
+
+                <!-- Password -->
+                <div class="setting-item">
+                    <label>Password</label>
+                    <button>Update Password</button>
+                </div>
+
+                <!-- Notifications -->
+                <div class="setting-item toggle">
+                    <label for="notifications">Notifications</label>
+                    <input type="checkbox" id="notifications" checked />
+                </div>
+
+                <!-- Dark Mode -->
+                <div class="setting-item toggle">
+                    <label for="dark-mode">Dark Mode</label>
+                    <input type="checkbox" id="dark-mode" />
+                </div>
+
+                <!-- Language -->
+                <div class="setting-item">
+                    <label for="language">Language</label>
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+
+                <!-- Logout -->
+                <div class="setting-item danger">
+                    <button>Logout</button>
+                </div>
+            </div>
+
         </div>
     </header>
 

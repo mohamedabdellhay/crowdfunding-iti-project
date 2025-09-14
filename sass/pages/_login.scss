@@ -99,7 +99,7 @@ $font-family: "Arial", sans-serif;
         transition: background 0.3s;
 
         &:hover {
-          background: darken($primary-color, 10%);
+          background: $primary-color, 10%;
         }
       }
     }

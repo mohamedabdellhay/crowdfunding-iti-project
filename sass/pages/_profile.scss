@@ -190,3 +190,14 @@
     }
   }
 }
+
+// responsive
+
+@media (max-width: 600) {
+  .campaigns-section {
+    overflow: scroll;
+  }
+  .profile-card {
+    border-radius: 0;
+  }
+}

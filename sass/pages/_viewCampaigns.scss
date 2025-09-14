@@ -143,3 +143,30 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .campaign-view {
+    padding: 0;
+
+    .campaign-container {
+      border-radius: 0;
+      box-shadow: none;
+      padding-bottom: 20px;
+      .campaign-image {
+        height: auto;
+        img {
+          width: 100%;
+        }
+      }
+      .campaign-content {
+        padding: 10px;
+      }
+    }
+    form {
+      flex-wrap: wrap;
+    }
+  }
+  footer {
+    margin-top: 0;
+  }
+}

@@ -341,6 +341,15 @@ class AuthService {
     document.querySelector(".logout-btn")?.addEventListener("click", () => {
       this.logout();
     });
+
+    document.addEventListener("click", function (event) {
+      if (event.target.closest("a[href='#show-settings']")) {
+        console.log("clicked");
+        document
+          .getElementById("mobile-app-settings")
+          .classList.toggle("hidden");
+      }
+    });
   }
 }
 
