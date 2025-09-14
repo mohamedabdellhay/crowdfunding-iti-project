@@ -83,8 +83,8 @@ class Campaign {
       ? `<button class="icon-btn edit" data-action="edit-campaign" data-id="${this.id}">Edit</button>
                 <button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Delete</button>`
       : authService.setIsLoggedIn
-      ? `<button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Add Reward</button>`
-      : `<button class="icon-btn" onclick="window.location.href='../login'">Login to Add Reward</button>`;
+      ? `<button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Add Pledge</button>`
+      : `<button class="icon-btn" onclick="window.location.href='../login'">Login to Add Pledge</button>`;
   }
   generateTableRow() {
     const rewardsHtml = this.generateRewardsHtml();
@@ -123,7 +123,7 @@ class Campaign {
     }" disabled>
                 </label>
             </td>
-            <td>${rewardsHtml || '<span class="tag">No rewards</span>'}</td>
+            <td>${rewardsHtml || '<span class="tag">No Pledges</span>'}</td>
             <td class="actions">${this.generateActions()}</td>
     </tr>
     `;
@@ -209,7 +209,7 @@ class CampaignManager {
           ${rewards.map((r) => this.renderSingleReward(r)).join("")}
         </div>`;
     } else {
-      return `<div className="rewards">No rewards listed.</div>`;
+      return `<div className="rewards">No Pledges listed.</div>`;
     }
   }
 

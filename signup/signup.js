@@ -17,6 +17,7 @@ const userData = {
   email: null,
   password: null,
   valid: false,
+  date: new Date(),
 };
 
 inputFields.forEach((ele) =>
@@ -73,7 +74,7 @@ async function registerUser(data) {
 
     // Save the access token
     // localStorage.setItem("accessToken", result.accessToken);
-    window.history.pushState("./");
+    window.history.pushState("/");
     window.location.href = "/login";
   } catch (error) {
     console.error("Error:", error);

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../public/logo.ico">
     <link rel="stylesheet" href="../sass/main.css">
     <link rel="stylesheet" href="../style.css">
     <script src="../main.js" defer></script>
@@ -29,7 +30,6 @@
                         </div>
                         <div>
                             <ul class="flex space-between align-center flex-grow-1">
-                                <li><a href="../dashboard/">Dashboard</a></li>
                                 <li><a href="../campaigns/">Campaigns</a></li>
                                 <li><a href="../top-donors/">Top donors</a></li>
                             </ul>
@@ -137,7 +137,7 @@
 
                 <div class="profile-actions">
                     <button class="btn primary">Update Email</button>
-                    <button class="btn secondary">Update Password</button>
+                    <button class="btn secondary" id="updatePasswordBtn">Update Password</button>
                 </div>
             </div>
 
@@ -203,9 +203,17 @@
 
 
 
+    <div id="updatePasswordOverlay" class="hidden">
 
+    </div>
 
-
+    <div class="update-password-card hidden" id="updatePasswordSection">
+        <h2>Update Password</h3>
+            <input type="text" id="new-password" placeholder="Enter New Password">
+            <input type="text" id="confirm-new-password" placeholder="Confirm New Password">
+            <div id="password-error"></div>
+            <button type="button">Update Password</button>
+    </div>
 
 
     <!-- footer  -->

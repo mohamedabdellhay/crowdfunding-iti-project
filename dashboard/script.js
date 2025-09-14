@@ -165,7 +165,7 @@ let userStatus = null;
                 </div>
             </section>
 
-            <section id="Campaigns" class="tab-panel" hidden>
+            <section id="Campaigns" class="tab-panel Campaigns" hidden>
                 <div class="card">
                     <div class="toolbar">
                         <input id="campSearch" class="input" placeholder="Search campaigns (title)" />

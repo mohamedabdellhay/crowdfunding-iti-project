@@ -401,6 +401,68 @@ footer .footer .copyright {
   color: #364c6f;
 }
 
+#updatePasswordOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(5, 5, 5, 0.3960784314);
+}
+
+.update-password-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  margin: 2rem auto;
+  font-family: Arial, sans-serif;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.update-password-card h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+  font-size: 1.4rem;
+}
+.update-password-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+.update-password-card input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+}
+.update-password-card #password-error {
+  margin: 15px 0;
+  color: rgb(248, 54, 54);
+  font-weight: 500;
+}
+.update-password-card button {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.update-password-card button:hover {
+  background: #357abd;
+}
+
 .section-header {
   padding: 1rem 2rem 0;
 }
@@ -758,13 +820,13 @@ footer .footer .copyright {
 }
 
 #dashboard .container,
-#Campaigns .container {
+.Campaigns .container {
   max-width: 1200px;
   margin-inline: auto;
   padding: 24px;
 }
 #dashboard .header,
-#Campaigns .header {
+.Campaigns .header {
   display: flex;
   gap: 12px;
   align-items: center;
@@ -772,7 +834,7 @@ footer .footer .copyright {
   margin: 0 1rem;
 }
 #dashboard .badge,
-#Campaigns .badge {
+.Campaigns .badge {
   font-size: 12px;
   color: #374151;
   background: var(--brand-ghost);
@@ -780,7 +842,7 @@ footer .footer .copyright {
   border-radius: 999px;
 }
 #dashboard .btn,
-#Campaigns .btn {
+.Campaigns .btn {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -792,19 +854,19 @@ footer .footer .copyright {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
 }
 #dashboard .btn:focus,
-#Campaigns .btn:focus {
+.Campaigns .btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px var(--ring);
 }
 #dashboard .tabs,
-#Campaigns .tabs {
+.Campaigns .tabs {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
 }
 #dashboard .tab,
-#Campaigns .tab {
+.Campaigns .tab {
   border: 1px solid #e5e7eb;
   background: #fff;
   border-radius: 12px;
@@ -813,13 +875,13 @@ footer .footer .copyright {
   cursor: pointer;
 }
 #dashboard .tab.active,
-#Campaigns .tab.active {
+.Campaigns .tab.active {
   background: #3d5476;
   color: #fff;
   border-color: #111827;
 }
 #dashboard .grid,
-#Campaigns .grid {
+.Campaigns .grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
@@ -827,12 +889,12 @@ footer .footer .copyright {
 }
 @media (min-width: 900px) {
   #dashboard .grid,
-  #Campaigns .grid {
+  .Campaigns .grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 #dashboard .stat,
-#Campaigns .stat {
+.Campaigns .stat {
   background: #fff;
   border: 1px solid #f0f0f1;
   border-radius: 16px;
@@ -840,18 +902,18 @@ footer .footer .copyright {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 #dashboard .stat .label,
-#Campaigns .stat .label {
+.Campaigns .stat .label {
   font-size: 12px;
   color: var(--muted);
 }
 #dashboard .stat .value,
-#Campaigns .stat .value {
+.Campaigns .stat .value {
   font-size: 24px;
   font-weight: 700;
   margin-top: 6px;
 }
 #dashboard .card,
-#Campaigns .card {
+.Campaigns .card {
   background: #fff;
   border: 1px solid #eef0f3;
   border-radius: 16px;
@@ -860,7 +922,7 @@ footer .footer .copyright {
   padding: 2rem;
 }
 #dashboard .toolbar,
-#Campaigns .toolbar {
+.Campaigns .toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -870,8 +932,8 @@ footer .footer .copyright {
 }
 #dashboard .input,
 #dashboard .select,
-#Campaigns .input,
-#Campaigns .select {
+.Campaigns .input,
+.Campaigns .select {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 0.55rem 0.8rem;
@@ -880,7 +942,7 @@ footer .footer .copyright {
   min-width: 220px;
 }
 #dashboard .table,
-#Campaigns .table {
+.Campaigns .table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -890,7 +952,7 @@ footer .footer .copyright {
   background: #fff;
 }
 #dashboard .table thead th,
-#Campaigns .table thead th {
+.Campaigns .table thead th {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -901,17 +963,17 @@ footer .footer .copyright {
   border-bottom: 1px solid #eef0f3;
 }
 #dashboard .table tbody td,
-#Campaigns .table tbody td {
-  padding: 12px;
+.Campaigns .table tbody td {
+  padding: 5px;
   border-bottom: 1px solid #f2f3f5;
   vertical-align: middle;
 }
 #dashboard .table tbody tr:last-child td,
-#Campaigns .table tbody tr:last-child td {
+.Campaigns .table tbody tr:last-child td {
   border-bottom: none;
 }
 #dashboard .tag,
-#Campaigns .tag {
+.Campaigns .tag {
   display: inline-flex;
   gap: 6px;
   align-items: center;
@@ -922,7 +984,7 @@ footer .footer .copyright {
   padding: 0.25rem 0.55rem;
 }
 #dashboard .tag.dot::before,
-#Campaigns .tag.dot::before {
+.Campaigns .tag.dot::before {
   content: "";
   width: 8px;
   height: 8px;
@@ -931,19 +993,19 @@ footer .footer .copyright {
   background: #d1d5db;
 }
 #dashboard .tag.ok.dot::before,
-#Campaigns .tag.ok.dot::before {
+.Campaigns .tag.ok.dot::before {
   background: #10b981;
 }
 #dashboard .tag.bad.dot::before,
-#Campaigns .tag.bad.dot::before {
+.Campaigns .tag.bad.dot::before {
   background: #ef4444;
 }
 #dashboard .tag.warn.dot::before,
-#Campaigns .tag.warn.dot::before {
+.Campaigns .tag.warn.dot::before {
   background: #f59e0b;
 }
 #dashboard .switch,
-#Campaigns .switch {
+.Campaigns .switch {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -958,12 +1020,12 @@ footer .footer .copyright {
   border: 1px solid #e5e7eb;
 }
 #dashboard .switch:checked,
-#Campaigns .switch:checked {
+.Campaigns .switch:checked {
   background: #3d5476;
   border-color: #111827;
 }
 #dashboard .switch::after,
-#Campaigns .switch::after {
+.Campaigns .switch::after {
   content: "";
   position: absolute;
   top: 2px;
@@ -976,11 +1038,11 @@ footer .footer .copyright {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 }
 #dashboard .switch:checked::after,
-#Campaigns .switch:checked::after {
+.Campaigns .switch:checked::after {
   left: 18px;
 }
 #dashboard .kbd,
-#Campaigns .kbd {
+.Campaigns .kbd {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   background: #111;
   color: #fff;
@@ -989,13 +1051,13 @@ footer .footer .copyright {
   font-size: 12px;
 }
 #dashboard .actions,
-#Campaigns .actions {
+.Campaigns .actions {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 #dashboard .icon-btn,
-#Campaigns .icon-btn {
+.Campaigns .icon-btn {
   border: 1px solid #e5e7eb;
   background: #fff;
   border-radius: 10px;
@@ -1004,21 +1066,21 @@ footer .footer .copyright {
   cursor: pointer;
 }
 #dashboard .icon-btn:hover,
-#Campaigns .icon-btn:hover {
+.Campaigns .icon-btn:hover {
   background: #fafafa;
 }
 #dashboard .inline-edit,
-#Campaigns .inline-edit {
+.Campaigns .inline-edit {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 #dashboard .inline-edit input,
-#Campaigns .inline-edit input {
+.Campaigns .inline-edit input {
   min-width: 120px;
 }
 #dashboard .footer-note,
-#Campaigns .footer-note {
+.Campaigns .footer-note {
   margin-top: 18px;
   color: #6b7280;
   font-size: 12px;
@@ -1100,7 +1162,7 @@ footer .footer .copyright {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .campaign-card {

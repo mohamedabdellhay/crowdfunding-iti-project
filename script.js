@@ -15,4 +15,4 @@ const href = window.location.href
 
 console.log("href", href);
 
-document.querySelector(`header a[href='./']`).classList.add("active");
+document.querySelector(`header a[href='./']`)?.classList.add("active");

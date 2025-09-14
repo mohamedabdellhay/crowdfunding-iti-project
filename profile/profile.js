@@ -3,6 +3,16 @@ import { Pledges, PledgesManager } from "../settings/settings.js";
 const authService = new AuthService();
 
 console.log("start Profile");
+
+const DOM_SELECTION = {
+  updatePasswordSection: document.getElementById("updatePasswordSection"),
+  updatePasswordOverlay: document.getElementById("updatePasswordOverlay"),
+  oldPassword: document.getElementById("old-password"),
+  newPassword: document.getElementById("new-password"),
+  confirmNewPassword: document.getElementById("confirm-new-password"),
+  passwordErrorMessage: document.getElementById("password-error"),
+};
+
 const userState = {
   user: null,
   campaigns: [],
@@ -52,37 +62,9 @@ class User {
   get Role() {
     return this.#role;
   }
-  renderUserData() {}
-  renderSingleCampaign(row) {
-    return `
-    <tr>
-                            <td>1</td>
-                            <td>
-                                <img src="https://via.placeholder.com/100" alt="Campaign Image" />
-                            </td>
-                            <td>
-                                <input class="input" value="Smart Watch Pro" data-camp="title" data-id="1">
-                            </td>
-                            <td>
-                                <input type="number" class="input" value="15000" data-camp="goal" data-id="1">
-                            </td>
-                            <td>
-                                <input type="date" class="input" value="2024-12-20" data-camp="deadline" data-id="1"
-                                    disabled>
-                            </td>
-                            <td>
-                                <label class="switch-label">
-                                    <input type="checkbox" class="switch" checked data-action="toggle-approved"
-                                        data-id="1">
-                                    <span class="switch-slider"></span>
-                                </label>
-                            </td>
-                            <td><span class="tag">No rewards</span></td>
-                            <td>
-                                <button class="btn small">Edit</button>
-                                <button class="btn danger small">Delete</button>
-                            </td>
-                        </tr>`;
+  updatePassword(oldPass, newPass, confirmNewPass) {
+    console.log("old ", oldPass);
+    console.log("new ", newPass);
   }
 }
 
@@ -215,12 +197,51 @@ class Campaigns {
         row.date
       )
     );
-    const campaignsFooter = `<tr><td colspan="8"><a href="/settings">See All...</a></td><tr>`;
+    const campaignsFooter = `<tr><td colspan="8"><a href="/settings#campaigns">See All...</a></td><tr>`;
     campaignsTable.push(campaignsFooter);
     this.renderCampaignsHeader(dataLength);
     this.#campaignsTableBody.innerHTML = campaignsTable.join("");
   }
 }
+
+document.addEventListener("click", async function (event) {
+  if (event.target.closest("#updatePasswordBtn")) {
+    console.log("update password");
+    DOM_SELECTION.updatePasswordOverlay.classList.remove("hidden");
+    DOM_SELECTION.updatePasswordSection.classList.remove("hidden");
+  } else if (event.target.closest("#updatePasswordSection>button")) {
+    console.log("user try to save data");
+    const oldPasswordValue = DOM_SELECTION.oldPassword.value.trim();
+    const newPasswordValue = DOM_SELECTION.newPassword.value.trim();
+    const confirmPasswordValue = DOM_SELECTION.confirmNewPassword.value.trim();
+    console.log("old", oldPasswordValue);
+    console.log("new", newPasswordValue);
+    console.log("confirm", confirmPasswordValue);
+    if (newPasswordValue !== confirmPasswordValue) {
+      DOM_SELECTION.passwordErrorMessage.innerHTML =
+        "New password is not matched";
+
+      return;
+    }
+
+    const updateRes = await fetch(
+      `http://localhost:3000/users/${authService.userId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password: newPasswordValue }),
+      }
+    );
+
+    const data = await updateRes.json();
+    console.log("data", data);
+  } else if (event.target.closest("#updatePasswordOverlay")) {
+    DOM_SELECTION.updatePasswordOverlay.classList.add("hidden");
+    DOM_SELECTION.updatePasswordSection.classList.add("hidden");
+  }
+});
 
 (async function () {
   authService.getStorage();
@@ -267,6 +288,9 @@ class Campaigns {
 
   const pledges = new PledgesManager();
 
-  await pledges.fetchData(authService.userId, 3);
-  pledges.renderAsHtml();
+  await pledges.fetchData(authService.userId);
+  pledges.renderAsHtml(
+    `<tr><td colspan="6"><a href="/settings/#pledges">See All...</a></td><tr>`,
+    3
+  );
 })();

@@ -20,9 +20,9 @@ class Notifications {
     });
   }
 
-  static async fetchLatestRewards(sort = "desc", col = "date") {
+  static async fetchLatestRewards(date, sort = "desc", col = "date") {
     const response = await fetch(
-      `http://localhost:3000/rewards?_sort=${col}&_order=${sort}&_expand=user&_expand=campaign&_limit=5`
+      `http://localhost:3000/rewards?_sort=${col}&_order=${sort}&_expand=user&_expand=campaign&_limit=5&date_gte=${date}`
     );
     const data = await response.json();
     return data;

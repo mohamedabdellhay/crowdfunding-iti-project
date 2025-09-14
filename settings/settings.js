@@ -85,10 +85,11 @@ class Campaign {
 
     return authService.userEmail === this.user.email
       ? `<button class="icon-btn edit" data-action="edit-campaign" data-id="${this.id}">Edit</button>
-                <button class="icon-btn delete" data-action="delete-campaign" data-id="${this.id}" style="background:#ef4444; color: #fff;">Delete</button>`
+                <button class="icon-btn delete" data-action="delete-campaign" data-id="${this.id}" style="background:#ef4444; color: #fff;">Delete</button>
+                <button class="icon-btn" style="background:#10b981; color:#fff" onclick="window.location.href='/campaigns/view/?id=${this.id}'">View</button>`
       : authService.setIsLoggedIn
-      ? `<button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Add Reward</button>`
-      : `<button class="icon-btn" onclick="window.location.href='../login'">Login to Add Reward</button>`;
+      ? `<button class="icon-btn" data-action="delete-campaign" data-id="${this.id}">Add Pledge</button>`
+      : `<button class="icon-btn" onclick="window.location.href='../login'">Login to Add Pledge</button>`;
   }
 
   generateTableRow() {
@@ -278,9 +279,11 @@ export class PledgesManager {
     this.#pledgesData = data;
   }
 
-  renderAsHtml() {
+  renderAsHtml(footer = null, count = null) {
     this.renderPledgesHeader(this.#pledgesData.length);
+    this.#pledgesData.length = count ?? this.#pledgesData.length;
     this.#pledgesTable.innerHTML = this.renderPledgesTable(this.#pledgesData);
+    this.#pledgesTable.insertAdjacentHTML("beforeend", footer ?? "");
   }
   renderPledgesHeader(count) {
     this.#pledgesHeader.innerHTML = `<span>Your Pledges</span><span>Count: ${count}</span>`;
@@ -339,7 +342,7 @@ function domListener() {
   // listen for image upload
   document
     .getElementById("uploadImageBox")
-    .addEventListener("click", function () {
+    ?.addEventListener("click", function () {
       this.previousElementSibling.click();
     });
 }
@@ -351,7 +354,7 @@ function renderCreateCampaignBtn(isLoggedIn) {
 
 // listen for form submit
 function listenForFormSubmit() {
-  document.forms[0].addEventListener("submit", async function (event) {
+  document.forms[0]?.addEventListener("submit", async function (event) {
     event.preventDefault();
     let data = await CampaignManager.createNewCampaign();
     console.log("form data", data);
@@ -442,6 +445,10 @@ async function deleteCampaign(id) {
 (async function () {
   authService.getStorage();
   await authService.renderHeder();
+  if (!authService.isLoggedIn) {
+    window.location.href = "/login";
+    return;
+  }
   renderSettingsIcon();
   domListener();
   // fetch all campaigns

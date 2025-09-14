@@ -23,7 +23,7 @@ $bad: #ef4444;
 }
 
 #dashboard,
-#Campaigns {
+.Campaigns {
   .container {
     max-width: 1200px;
     margin-inline: auto;
@@ -154,7 +154,7 @@ $bad: #ef4444;
       border-bottom: 1px solid #eef0f3;
     }
     tbody td {
-      padding: 12px;
+      padding: 5px;
       border-bottom: 1px solid #f2f3f5;
       vertical-align: middle;
     }

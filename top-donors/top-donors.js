@@ -34,6 +34,7 @@ class TopDonors {
           sumRewards,
         };
       })
+      .filter((e) => e.sumRewards > 0)
       .sort((a, b) => b.sumRewards - a.sumRewards);
   }
 

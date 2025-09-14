@@ -43,7 +43,7 @@ class Campaign {
 
   async fetchCampaign(campaignId) {
     let response = await fetch(
-      `http://localhost:3000/campaigns/${campaignId}?_expand=user&_embed=pledges&_embed=rewards&isApprovedtrue`
+      `http://localhost:3000/campaigns/${campaignId}?_expand=user&_embed=pledges&_embed=rewards&isApproved=true`
     );
     if (response.status != 200) {
       console.log("campaign not found");
@@ -104,7 +104,7 @@ class Campaign {
     return `<ul id="rewards-list">
              ${
                rewards.length === 0
-                 ? `<li>No rewards available.</li>`
+                 ? `<li>No Pledges available.</li>`
                  : rewards.map((r) => this.renderRewardCard(r)).join("")
              } 
             </ul>`;
@@ -139,7 +139,7 @@ class Campaign {
 
                 <!-- Rewards -->
                 <div class="campaign-rewards">
-                    <h3>Rewards</h3>
+                    <h3>Pledges</h3>
                     ${this.renderRewards(campaign.rewards)}
 
                     <!-- Add Reward Form -->
@@ -149,7 +149,7 @@ class Campaign {
                         ? `<form id="reward-form">
                         <input type="text" id="reward-title" placeholder="Reward Title" required>
                         <input type="number" id="reward-amount" placeholder="Amount ($)" required>
-                        <button type="button" class="bg-primary">+ Add Reward</button>
+                        <button type="button" class="bg-primary">+ Add Pledge</button>
                     </form>`
                         : ``
                     }
