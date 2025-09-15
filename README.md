@@ -2,7 +2,7 @@
 
 A modern, responsive crowdfunding web application built with native JavaScript, HTML, and SCSS. FundStart allows users to create, fund, and manage crowdfunding campaigns with an intuitive and user-friendly interface.
 
-## ✨ Features
+## Features
 
 - **Campaign Creation**: Create detailed crowdfunding campaigns with descriptions, goals, and timelines
 - **Campaign Funding**: Support projects with secure donation functionality
@@ -11,14 +11,14 @@ A modern, responsive crowdfunding web application built with native JavaScript, 
 - **Modern UI/UX**: Clean, intuitive interface built with SCSS
 - **Native JavaScript**: Fast performance without heavy frameworks
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Frontend**: HTML5, CSS3, SCSS
 - **JavaScript**: Vanilla JavaScript (ES6+)
 - **Styling**: SCSS/Sass for modular and maintainable styles
 - **Responsive Design**: Mobile-first approach
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 crowdfunding-iti-project/
@@ -45,7 +45,7 @@ crowdfunding-iti-project/
 └── README.md
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -91,7 +91,7 @@ If you want to modify styles:
    sass --watch assets/scss:assets/css
    ```
 
-## 📱 Usage
+## Usage
 
 1. **Browse Campaigns**: Explore available crowdfunding campaigns on the homepage
 2. **Create Campaign**: Click "Start Campaign" to create your own fundraising project
@@ -99,9 +99,9 @@ If you want to modify styles:
 4. **Track Progress**: Monitor campaign progress and updates
 5. **Manage Campaigns**: Access your dashboard to manage created campaigns
 
-## 🎯 Key Features Breakdown
+## Key Features Breakdown
 
-## 🎯 Key Features Breakdown
+## Key Features Breakdown
 
 - Image upload and gallery management
 - Goal setting and timeline configuration
@@ -116,24 +116,24 @@ If you want to modify styles:
 
 n
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - ITI (Information Technology Institute) for project guidance
 - Open source community for inspiration
 - Contributors and testers
 
-## 📊 Project Status
+## Project Status
 
-- ✅ Core functionality implemented
-- ✅ Responsive design completed
-- 🔄 Payment integration in progress
-- 🔄 Advanced features in development
+- Core functionality implemented
+- Responsive design completed
+- Payment integration in progress
+- Advanced features in development
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - [ ] Payment gateway integration
 - [ ] Social media sharing
@@ -143,6 +143,6 @@ This project is licensed under the MIT License.
 
 ---
 
-⭐ **Like this project? Give it a star!** ⭐
+**Like this project? Give it a star!**
 
 Made with ❤️ by Mohamed Abdellhay
