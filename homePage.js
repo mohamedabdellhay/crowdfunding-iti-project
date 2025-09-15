@@ -12,7 +12,7 @@ class Home {
 
   async setLastCampaigns() {
     const response = await fetch(
-      `http://localhost:3000/campaigns?_embed=rewards&isApproved=true&_limit=5`
+      `http://localhost:3000/campaigns?_embed=rewards&isApproved=true&_sort=date&_order=desc&_limit=5`
     );
     const data = await response.json();
     this.lastCampaigns = data;
