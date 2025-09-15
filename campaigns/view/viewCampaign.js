@@ -169,7 +169,7 @@ class Campaign {
   }
 
   renderCampaign(data) {
-    document.title = `Campaign | ${this.title}`;
+    document.title = `Campaign | ${data.title}`;
     this.#campaignContainer.innerHTML = "";
 
     this.#campaignContainer.insertAdjacentHTML(
