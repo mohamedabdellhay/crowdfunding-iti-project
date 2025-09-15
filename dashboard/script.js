@@ -72,9 +72,46 @@ const HttpClient = {
 };
 
 let userStatus = null;
-
+function isMobileUserAgent() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    userAgent
+  );
+}
 // iife function to run dashboard as async operation
 (async function () {
+  if (isMobileUserAgent()) {
+    console.log("mobile");
+
+    document.querySelector("main").innerHTML = `<div 
+  style="display:flex;align-items:center;gap:12px;padding:12px 14px;
+         background:linear-gradient(180deg,#f6fbff,#fff);
+         border-left:4px solid #567089;border-radius:10px;
+         box-shadow:0 6px 18px rgba(14,30,55,0.06);
+         color:#0b2540;max-width:740px;margin:12px auto;
+         font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
+         animation:notice-in .22s ease;"
+>
+  <!-- Icon -->
+  <svg style="width:36px;height:36px;flex:0 0 36px;fill:#567089;opacity:.98;" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2zm0 5a1.25 1.25 0 1 1 0 2.5A1.25 1.25 0 0 1 12 7zm1 9h-2v-6h2v6z"/>
+  </svg>
+
+  <!-- Text -->
+  <div>
+    <p style="margin:0;font-size:15px;line-height:1.2;font-weight:600;">
+      <strong>Please use a desktop</strong> to open the admin panel.
+    </p>
+    <small style="display:block;margin-top:4px;color:#567089;font-size:12px;font-weight:400;">
+      Some admin ui features are available on larger screens only.
+    </small>
+  </div>
+
+ 
+</div>
+`;
+    return;
+  }
   authService.getStorage();
   await authService.renderHeder();
   console.log("isLogged", authService.isLoggedIn);
@@ -210,7 +247,7 @@ let userStatus = null;
                         </thead>
                         <tbody></tbody>
                     </table>
-                </div>
+                    </div>
             </section>
 
 
